@@ -13,12 +13,20 @@ void setup() {
 
   // Initialize I2C with custom pins (SDA=16, SCL=17)
   // This function is for Teensy, where you initialize with Wire for custom pins
+  /*
   Wire1.setSDA(16);  // Set SDA to Pin 16
   Wire1.setSCL(17);  // Set SCL to Pin 17
-  Wire1.begin();     // Begin I2C communication on Wire1 with the custom SDA/SCL pins
+  */
+
+  
+ 
+  Wire1.begin(); //<-- optional petrameters to change address    // Begin I2C communication on Wire1 with the custom SDA/SCL pins
+  boolean begin(uint8_t i2c_addr = VL53L0X_I2C_ADDR);
+  boolean setAddress(uint8_t newAddr);
 
   Serial.println("Adafruit VL53L0X test");
-  if (!lox.begin()) {
+
+  if (!lox.begin(VL53L0X_I2C_ADDR, 0, &Wire)) {
     Serial.println(F("Failed to boot VL53L0X"));
     while(1);
   }
@@ -39,5 +47,5 @@ void loop() {
     Serial.println(" out of range ");
   }
 
-  delay(100);
+  delay(1000);
 }
