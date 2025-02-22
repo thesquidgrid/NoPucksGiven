@@ -14,7 +14,7 @@ void setup() {
   // Initialize I2C with custom pins (SDA=16, SCL=17)
   // This function is for Teensy, where you initialize with Wire for custom pins
   /*
-  Wire1.setSDA(16);  // Set SDA to Pin 16
+  Wire1.setSDA(18);  // Set SDA to Pin 16
   Wire1.setSCL(17);  // Set SCL to Pin 17
   */
 
@@ -30,7 +30,7 @@ void setup() {
     Serial.println(F("Failed to boot VL53L0X"));
     while(1);
   }
-  lox.setAddress(0x30)
+  lox.setAddress(0x30); //set address
   // power 
   Serial.println(F("VL53L0X API Simple Ranging example\n\n")); 
 }
