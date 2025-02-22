@@ -1,9 +1,11 @@
 #include <QTRSensors.h>
+#include "DualMC33926MotorShield.h"
+
 
 // Line Sensor & PID Configuration Variables
 #define SETPOINT    3500  // The goal for readLine (center)
 #define KP          0.2   // The P value in PID
-#define KI          0.05
+#define KI          0.0
 #define KD          1.0   // The D value in PID
 #define MAX_SPEED   250   // The max speed to set motors to
 #define SET_SPEED   200   // The goal speed to set motors to
@@ -29,6 +31,8 @@ int lastError = 0;  // For storing PID error
 float integralError = 0;
 bool calibrationDone = false;
 
+DualMC33926MotorShield md;
+
 // SENSORS **********************************
 #define NUM_SENSORS 7 
 const uint8_t sensorPins[NUM_SENSORS] = {A0, A1, A2, A3, A4, A5, A6};
@@ -48,23 +52,22 @@ void setup() {
     pinMode(R_IN2, OUTPUT);
 
     digitalWrite(ENABLE_PIN, HIGH); // Enable motor driver
-
+    md.init(); // Initalize Motor Driver
     // Initialize QTR sensor
     qtr.setTypeRC();
     qtr.setSensorPins(sensorPins, NUM_SENSORS);
     qtr.setEmitterPin(2);
 
-    // Calibration Phase
+    // Wait for button press to start calibration
     Serial.println("Press Button To Start Calibration...");
-    while (digitalRead(BUTTON_PIN) == HIGH) {
-        calibrateSensors();
-    }
+    while (digitalRead(BUTTON_PIN) == HIGH);
+    calibrateSensors();
 
-    // Wait for the second button press to start the robot
-    Serial.println("Press Button To Start The Line Following...");
+    // Wait for second button press to start robot
+    Serial.println("Press Button To Start Line Following...");
     while (digitalRead(BUTTON_PIN) == HIGH);
 
-    Serial.println("Starting Robot...");
+    Serial.println("Starting Robot!");
     calibrationDone = true;
 }
 
@@ -79,17 +82,19 @@ void calibrateSensors() {
 
 void setMotorSpeed(int leftSpeed, int rightSpeed) {
     // Apply Speed Constraints
-    leftSpeed = constrain(leftSpeed, MIN_SPEED, MAX_SPEED);
-    rightSpeed = constrain(rightSpeed, MIN_SPEED, MAX_SPEED);
+    leftSpeed = constrain(leftSpeed, -400, 400);
+    rightSpeed = constrain(rightSpeed, -400, 400);
 
+    md.setM1Speed(leftSpeed);
+    md.setM2Speed(rightSpeed);
     // Motor Direction Logic
-    digitalWrite(L_IN1, leftSpeed >= 0 ? HIGH : LOW);
-    digitalWrite(L_IN2, leftSpeed >= 0 ? LOW : HIGH);
-    analogWrite(L_PWM, abs(leftSpeed));
+   // digitalWrite(L_IN1, leftSpeed >= 0 ? HIGH : LOW);
+   // digitalWrite(L_IN2, leftSpeed >= 0 ? LOW : HIGH);
+   // analogWrite(L_PWM, abs(leftSpeed));
 
-    digitalWrite(R_IN1, rightSpeed >= 0 ? HIGH : LOW);
-    digitalWrite(R_IN2, rightSpeed >= 0 ? LOW : HIGH);
-    analogWrite(R_PWM, abs(rightSpeed));
+   //digitalWrite(R_IN1, rightSpeed >= 0 ? HIGH : LOW);
+   // digitalWrite(R_IN2, rightSpeed >= 0 ? LOW : HIGH);
+   // analogWrite(R_PWM, abs(rightSpeed));
 }
 
 void loop() {
