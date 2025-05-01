@@ -1,74 +1,40 @@
-/* This example shows how to get single-shot range
- measurements from the VL53L0X. The sensor can optionally be
- configured with different ranging profiles, as described in
- the VL53L0X API user manual, to get better performance for
- a certain application. This code is based on the four
- "SingleRanging" examples in the VL53L0X API.
+#include "Adafruit_VL53L0X.h"
+#include <Wire.h>  // Include the Wire library for custom I2C pins
 
- The range readings are in units of mm. */
+Adafruit_VL53L0X lox = Adafruit_VL53L0X();
 
-#include <Wire.h>
-#include <VL53L0X.h>
-
-VL53L0X sensor;
-
-
-// Uncomment this line to use long range mode. This
-// increases the sensitivity of the sensor and extends its
-// potential range, but increases the likelihood of getting
-// an inaccurate reading because of reflections from objects
-// other than the intended target. It works best in dark
-// conditions.
-
-//#define LONG_RANGE
-
-
-// Uncomment ONE of these two lines to get
-// - higher speed at the cost of lower accuracy OR
-// - higher accuracy at the cost of lower speed
-
-//#define HIGH_SPEED
-//#define HIGH_ACCURACY
-const int XSHUT_PIN = 17;  // Pin for controlling the XSHUT pin (D17)
-//working code:
-
-void setup()
-{
+void setup() {
   Serial.begin(115200);
-  Wire.begin();
 
-  pinMode(XSHUT_PIN, OUTPUT);
-  digitalWrite(XSHUT_PIN, HIGH);  // Bring the sensor out of reset
-  delay(100);                      // Wait for the sensor to boot
-
-  sensor.setTimeout(500);
-  if (!sensor.init())
-  {
-    Serial.println("Failed to detect and initialize sensor!");
-    while (1) {}
+  // wait until serial port opens for native USB devices
+  while (!Serial) {
+    delay(1);
   }
+ 
+  Wire.begin(); //<-- optional petrameters to change address    // Begin I2C communication on Wire1 with the custom SDA/SCL pins
 
-#if defined LONG_RANGE
-  // lower the return signal rate limit (default is 0.25 MCPS)
-  sensor.setSignalRateLimit(0.1);
-  // increase laser pulse periods (defaults are 14 and 10 PCLKs)
-  sensor.setVcselPulsePeriod(VL53L0X::VcselPeriodPreRange, 18);
-  sensor.setVcselPulsePeriod(VL53L0X::VcselPeriodFinalRange, 14);
-#endif
-
-#if defined HIGH_SPEED
-  // reduce timing budget to 20 ms (default is about 33 ms)
-  sensor.setMeasurementTimingBudget(20000);
-#elif defined HIGH_ACCURACY
-  // increase timing budget to 200 ms
-  sensor.setMeasurementTimingBudget(200000);
-#endif
+  if (!lox.begin(VL53L0X_I2C_ADDR, 0, &Wire)) {
+    Serial.println(F("Failed to boot VL53L0X"));
+    while(1);
+  }
+  
+  lox.setAddress(0x29);
+  // power 
+  Serial.println(F("VL53L0X API Simple Ranging example\n\n")); 
 }
 
-void loop()
-{
-  Serial.print(sensor.readRangeSingleMillimeters());
-  if (sensor.timeoutOccurred()) { Serial.print(" TIMEOUT"); }
+void loop() {
+  VL53L0X_RangingMeasurementData_t measure;
 
-  Serial.println();
+  Serial.print("Reading a measurement... ");
+  lox.rangingTest(&measure, false); // pass in 'true' to get debug data printout!
+
+  if (measure.RangeStatus != 4) {  // phase failures have incorrect data
+    Serial.print("Distance (mm): ");
+    Serial.println(measure.RangeMilliMeter);
+  } else {
+    Serial.println(" out of range ");
+  }
+
+  delay(1000);
 }
