@@ -1,6 +1,13 @@
 #include <Arduino.h>
 #include "MC33926MotorShield.h"
 #include "QTRSensors.h"
+#include "Adafruit_VL53L0X.h"
+#include <Wire.h>  // Include the Wire library for custom I2C pins
+
+Adafruit_VL53L0X lox = Adafruit_VL53L0X();
+
+const int XSHUT_PIN = 17;  // Pin for controlling the XSHUT pin (D17)
+
 
 
 // PID constants just for outside edge following
@@ -61,9 +68,7 @@ void setup() {
   // button setup
   pinMode(buttonPin, INPUT_PULLUP);  // Setup button pin
 
-  // sofias pin 6 thingy
-  pinMode(SLEEP_PIN, OUTPUT);
-  digitalWrite(SLEEP_PIN, LOW);
+ 
 
   // QTR setup
   qtr.setSensorPins((const uint8_t[]){16, 15, 14, 41, 40, 39, 38}, SENSOR_NUMS);
@@ -78,12 +83,43 @@ void setup() {
     qtr.calibrate();
     delay(5);
   }
+
+
+  pinMode(XSHUT_PIN, OUTPUT);
+  digitalWrite(XSHUT_PIN, HIGH);  // Bring the sensor out of reset
+  delay(100);                      // Wait for the sensor to boot
+  Wire.begin();  
+
+  while (!lox.begin(VL53L0X_I2C_ADDR, 0, &Wire)) {
+    Serial.println(F("Failed to boot VL53L0X"));
+    
+  }
+  
+  lox.startRangeContinuous();
   Serial.println("Setup complete.");
 }
 //*******************************************************************************************************************************************************************************************************************
 void loop() {
-  bool detectStrip = false;
+
+
+  uint16_t range = lox.readRange();
+  
+  Serial.print("Distance (mm): ");
+  Serial.println(range);
+  delay(5);
+  //bool detectStrip;
+  
+  if(range < 200){
+    //detectStrip = false;
     lineFollow();
+  } else{
+    leftMotor.setSpeed(0);
+    rightMotor.setSpeed(0);
+    while(1);
+  }
+  
+
+  
 
 }
 //*******************************************************************************************************************************************************************************************************************

@@ -58,9 +58,11 @@ void setup() {
   pinMode(XSHUT_PIN, OUTPUT);
   digitalWrite(XSHUT_PIN, HIGH);  // Bring the sensor out of reset
   delay(100);                      // Wait for the sensor to boot
-  Wire.begin();  
+  Wire.begin();
 
-  while (!lox.begin(VL53L0X_I2C_ADDR, 0, &Wire)) {
+    
+
+  while(!lox.begin(VL53L0X_I2C_ADDR, 0, &Wire)) {
     Serial.println(F("Failed to boot VL53L0X"));
     
   }
