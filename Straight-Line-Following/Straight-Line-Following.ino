@@ -8,8 +8,6 @@ Adafruit_VL53L0X lox = Adafruit_VL53L0X();
 
 const int XSHUT_PIN = 17;  // Pin for controlling the XSHUT pin (D17)
 
-
-
 // PID constants just for outside edge following
 #define EDGE_KP 0.05
 #define EDGE_KI 0.0
@@ -30,6 +28,8 @@ int edge_lastError = 0;
 #define KI 0
 #define KD 1.5
 #define SLEEP_PIN 6
+
+#define BLACK_THRESHOLD 800 /* adjust this for our starting sequence*/
 
 #define IGNORE_ERROR_THRESHOLD 3000
 
@@ -264,4 +264,44 @@ void lineFollowOutside() {
   // Set motor speeds
   leftMotor.setSpeed(leftSpeed);
   rightMotor.setSpeed(rightSpeed);
+}
+/* --------------------------------------------------------- Starting Sequence ---------------------------------------------------*/
+void driveUntilBlackThenTurn() {
+  // Drive forward
+  leftMotor.setSpeed(150);
+  rightMotor.setSpeed(150);
+
+  // Wait until all sensors see black
+  bool detectStrip = false;
+  int sensorCount = 0;
+  while (!detectStrip) {
+    qtr.read(sensorValues);
+    for (int i = 0; i < SENSOR_NUMS; i++) {
+      if (sensorValues[i] < BLACK_THRESHOLD) {
+        sensorCount++;
+      }
+    }
+    if (sensorCount > 3) {
+      detectStrip = true;
+    }
+    else {
+      sensorCount = 0;
+    }
+  }
+
+  // stop and delay
+  leftMotor.setSpeed(0);
+  rightMotor.setSpeed(0);
+  delay(200);
+
+  // turn in place 
+  leftMotor.setSpeed(-150);
+  rightMotor.setSpeed(150);
+
+  delay(300);  /* adjust this delay to make it consistent*/
+
+  leftMotor.setSpeed(0);
+  rightMotor.setSpeed(0);
+  delay(200);
+
 }
