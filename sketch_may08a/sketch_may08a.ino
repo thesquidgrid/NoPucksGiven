@@ -1,0 +1,142 @@
+#include <Arduino.h>
+#include "MC33926MotorShield.h"
+#include "QTRSensors.h"
+#include "Adafruit_VL53L0X.h"
+#include <Wire.h>  // Include the Wire library for custom I2C pins
+#include "SparkFun_TB6612.h"
+#include "Encoder.h"
+
+//TOF STUFF
+Adafruit_VL53L0X lox = Adafruit_VL53L0X();
+const int XSHUT_PIN = 17;  // Pin for controlling the XSHUT pin (D17)
+
+//LINE FOLLOWING:
+// PID constants just for outside edge following
+#define EDGE_KP 0.05
+#define EDGE_KI 0.0
+#define EDGE_KD 2.0
+#define EDGE_SETPOINT 500  // Tune this to match sensor[6] value when properly aligned
+
+float edge_integral = 0;
+int edge_lastError = 0;
+
+
+// Constants for PID line following
+#define SETPOINT 3000  // Middle of sensor range
+#define KP .07      // increase this with set speed
+#define KI 0
+#define KD 1.5
+#define IGNORE_ERROR_THRESHOLD 3000
+// PID Variables
+float integralError = 0;
+int lastError = 0;
+
+//QTR constants
+#define BLACK_THRESHOLD 800 /* adjust this for our starting sequence*/
+#define SENSOR_NUMS 7
+// QTR Setup
+QTRSensors qtr;
+uint16_t sensorValues[SENSOR_NUMS];  // Raw readings
+
+// Motors Setup
+MC33926MotorShield leftMotor(12, 10, 11, 24, 26);
+MC33926MotorShield rightMotor(9, 7, 8, 25, 26);
+//Motor constants
+#define MAX_SPEED 225
+#define MIN_SPEED 0
+#define SET_SPEED 180 // increase this with
+
+//ENCODER FOR MOTORS LEFT AND RIGHT
+//left:
+Encoder leftM(28, 27);
+//right:
+Encoder rightM(30, 29);
+
+//SHOOTER MOTOR STUFF:
+#define IN1_sm 21
+#define IN2_sm 20
+#define PWMA_sm 37
+
+//LAZY SUSAN motor control:
+#define AIN1_lsm 2
+#define AIN2_lsm 3
+#define PWMA_lsm 4
+#define STBY_lsm 9
+
+// Motor direction offset
+const int offsetA = 1;
+
+//LAZY SUSAN MOTOR
+Motor ls_motor = Motor(AIN1_lsm, AIN2_lsm, PWMA_lsm, offsetA, STBY_lsm);
+Encoder lsMotor(5, 6);  // Attach encoder to pins 5 and 6
+
+// Target encoder displacement for 90-degree rotation
+const long targetDisplacement = 123;  
+long oldPosition = -999;
+
+
+void setup() {
+
+  Serial.begin(115200);
+  // Initialize Motors
+  leftMotor.begin();
+  rightMotor.begin();
+  qtr.setSensorPins((const uint8_t[]){16, 15, 14, 41, 40, 39, 38}, SENSOR_NUMS);
+  qtr.setTypeAnalog();  // Important!
+  // put your setup code here, to run once:
+
+  //go forward until you sense all black and also quadrature encoder ((value 1000)
+  //go forward a little bit more ((2 rotations, 984))
+  //turn left until you sense black.
+  //start linefollowing until robot senses with TOF sensor that the goal is there.
+  //turn motor 90 degrees 2 times.
+  //slowly turn motor 30 degrees so it can feed it into the shooter motor
+  //run shooter motor after that runs.
+  //continue line following
+
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+
+}
+
+void driveUntilBlackThenTurn() {
+  // Drive forward
+  leftMotor.setSpeed(150);
+  rightMotor.setSpeed(150);
+
+  // Wait until all sensors see black
+  bool detectStrip = false;
+  int sensorCount = 0;
+  while (!detectStrip) {
+    qtr.read(sensorValues);
+    for (int i = 0; i < SENSOR_NUMS; i++) {
+      if (sensorValues[i] < BLACK_THRESHOLD) {
+        sensorCount++;
+      }
+    }
+    if (sensorCount > 3) {
+      detectStrip = true;
+    }
+    else {
+      sensorCount = 0;
+    }
+  }
+
+  // stop and delay
+  leftMotor.setSpeed(0);
+  rightMotor.setSpeed(0);
+  delay(200);
+
+  // turn in place 
+  leftMotor.setSpeed(-150);
+  rightMotor.setSpeed(150);
+
+  delay(300);  /* adjust this delay to make it consistent*/
+
+  leftMotor.setSpeed(0);
+  rightMotor.setSpeed(0);
+  delay(200);
+
+}
