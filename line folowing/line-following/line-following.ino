@@ -68,7 +68,6 @@ void setup() {
     leftMotor.begin();
     rightMotor.begin();
     Serial.println("Setup ran and completed");
-    '
 
     // Enable Stepper Driver
     pinMode(ENABLE_PIN, OUTPUT);
@@ -155,7 +154,7 @@ void lineFollow() {
 }
 
 // Function to Rotate 90 Degrees
-void rotate90() {
+void rotate90() { // stepper motor shi
     stepper.move(TURN_90); // Move exactly 50 steps
     stepper.runToPosition(); // Ensures it reaches the exact position
 }
