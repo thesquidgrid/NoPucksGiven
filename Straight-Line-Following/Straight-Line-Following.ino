@@ -3,17 +3,18 @@
 #include "QTRSensors.h"
 #include "Adafruit_VL53L0X.h"
 #include <Wire.h>  // Include the Wire library for custom I2C pins
-
+#include "Encoder.h"
 Adafruit_VL53L0X lox = Adafruit_VL53L0X();
 
 const int XSHUT_PIN = 17;  // Pin for controlling the XSHUT pin (D17)
 
+Encoder myEnc(28, 27);  //encoder for motor 1
 
 
 // PID constants just for outside edge following
-#define EDGE_KP 0.05
+#define EDGE_KP 0.07
 #define EDGE_KI 0.0
-#define EDGE_KD 2.0
+#define EDGE_KD 1.5
 #define EDGE_SETPOINT 500  // Tune this to match sensor[6] value when properly aligned
 
 float edge_integral = 0;
@@ -28,7 +29,7 @@ int edge_lastError = 0;
 #define SET_SPEED 180 // increase this with
 #define KP .07      // increase this with set speed
 #define KI 0
-#define KD 1.5
+#define KD 0
 #define SLEEP_PIN 6
 
 #define IGNORE_ERROR_THRESHOLD 3000
@@ -97,11 +98,33 @@ void setup() {
   
   lox.startRangeContinuous();
   Serial.println("Setup complete.");
+  myEnc.write(0); // Reset encoder position to 0 at startup
 }
+
+const long targetDisplacement = 500;  
+long oldPosition = -999;
 //*******************************************************************************************************************************************************************************************************************
 void loop() {
+  bool flag = false;
+  leftMotor.setSpeed(100);
+  rightMotor.setSpeed(100);
+  
+  while(flag == false){
 
+    
+    long newPosition = myEnc.read();
+  
+    if (newPosition != oldPosition) {
+      oldPosition = newPosition;
+      Serial.println(newPosition); 
+    }
 
+    if(abs(newPosition) >= targetDisplacement){
+      flag = true;
+    }
+  }
+  
+  while(1){
   uint16_t range = lox.readRange();
   
   Serial.print("Distance (mm): ");
@@ -109,7 +132,7 @@ void loop() {
   delay(5);
   //bool detectStrip;
   
-  if(range < 200){
+  if(range < 500){
     //detectStrip = false;
     lineFollow();
   } else{
@@ -117,7 +140,8 @@ void loop() {
     rightMotor.setSpeed(0);
     while(1);
   }
-  
+  }
+ 
 
   
 

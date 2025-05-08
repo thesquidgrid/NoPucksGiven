@@ -21,6 +21,8 @@ void setup() {
 long oldPosition  = -999;
 
 void loop() {
+
+  s
   long newPosition = myEnc.read();
   if (newPosition != oldPosition) {
     oldPosition = newPosition;
