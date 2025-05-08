@@ -9,6 +9,9 @@
 //TOF STUFF
 Adafruit_VL53L0X lox = Adafruit_VL53L0X();
 const int XSHUT_PIN = 17;  // Pin for controlling the XSHUT pin (D17)
+const long targetDisplacement = 500;  //target displacement for sensing the goal.
+long oldPosition = -999;
+
 
 //LINE FOLLOWING:
 // PID constants just for outside edge following
@@ -33,10 +36,13 @@ int lastError = 0;
 
 //QTR constants
 #define BLACK_THRESHOLD 800 /* adjust this for our starting sequence*/
+// Define sensor pins and value array
 #define SENSOR_NUMS 7
+
 // QTR Setup
 QTRSensors qtr;
 uint16_t sensorValues[SENSOR_NUMS];  // Raw readings
+
 
 // Motors Setup
 MC33926MotorShield leftMotor(12, 10, 11, 24, 26);
@@ -70,10 +76,6 @@ const int offsetA = 1;
 Motor ls_motor = Motor(AIN1_lsm, AIN2_lsm, PWMA_lsm, offsetA, STBY_lsm);
 Encoder lsMotor(5, 6);  // Attach encoder to pins 5 and 6
 
-// Target encoder displacement for 90-degree rotation
-const long targetDisplacement = 123;  
-long oldPosition = -999;
-
 
 void setup() {
 
@@ -81,9 +83,36 @@ void setup() {
   // Initialize Motors
   leftMotor.begin();
   rightMotor.begin();
+  
+  //initalize sensor pins
   qtr.setSensorPins((const uint8_t[]){16, 15, 14, 41, 40, 39, 38}, SENSOR_NUMS);
   qtr.setTypeAnalog();  // Important!
-  // put your setup code here, to run once:
+
+  //for i2c
+  Wire.begin();
+
+  for (int i = 0; i < 1000; i++) { //calibrate robot
+    qtr.calibrate();
+    delay(5);
+  }
+
+  //FOR TOF - TURNS IT ON
+  pinMode(XSHUT_PIN, OUTPUT);
+  digitalWrite(XSHUT_PIN, HIGH);  // Bring the sensor out of reset
+  delay(100);
+  
+  //force the TOF to boot
+  while (!lox.begin(VL53L0X_I2C_ADDR, 0, &Wire)) {
+    Serial.println(F("Failed to boot VL53L0X"));
+    lox.begin(VL53L0X_I2C_ADDR, 0, &Wire);
+  }
+  
+  lox.startRangeContinuous(); //tof start recording values.
+  Serial.println("Setup complete.");
+  //reset all encoders
+  rightM.write(0);
+  leftM.write(0);
+  lsMotor.write(0);
 
   //go forward until you sense all black and also quadrature encoder ((value 1000)
   //go forward a little bit more ((2 rotations, 984))
