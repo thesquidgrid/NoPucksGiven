@@ -127,7 +127,35 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
+  driveUntilBlackThenTurn();
+  while(1);
+}
 
+
+int readPosition() {
+  return qtr.readLineBlack(sensorValues);  // Populate sensorValues[]
+}
+
+void lineFollow() {
+  int position = readPosition();
+  int error = position - SETPOINT;
+
+  // PID math
+  int proportional = error;
+  integralError += error;
+  int derivative = error - lastError;
+  int correction = (KP * proportional) + (KI * integralError) + (KD * derivative);
+  lastError = error;
+
+  // Speed adjustment
+  int leftSpeed = SET_SPEED - correction;
+  int rightSpeed = SET_SPEED + correction;
+
+  leftSpeed = constrain((SET_SPEED + correction), MIN_SPEED, MAX_SPEED);
+  rightSpeed = constrain((SET_SPEED - correction), MIN_SPEED, MAX_SPEED);
+
+  leftMotor.setSpeed(leftSpeed);
+  rightMotor.setSpeed(rightSpeed);
 }
 
 void driveUntilBlackThenTurn() {
@@ -151,6 +179,7 @@ void driveUntilBlackThenTurn() {
     else {
       sensorCount = 0;
     }
+    delay(5); //delay to give it its bearings
   }
 
   // stop and delay
@@ -159,7 +188,6 @@ void driveUntilBlackThenTurn() {
   delay(200);
 
   // turn in place 
-  leftMotor.setSpeed(-150);
   rightMotor.setSpeed(150);
 
   delay(300);  /* adjust this delay to make it consistent*/
@@ -167,5 +195,4 @@ void driveUntilBlackThenTurn() {
   leftMotor.setSpeed(0);
   rightMotor.setSpeed(0);
   delay(200);
-
 }
