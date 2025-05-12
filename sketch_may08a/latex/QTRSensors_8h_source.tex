@@ -1,0 +1,160 @@
+\doxysection{QTRSensors.\+h}
+\hypertarget{QTRSensors_8h_source}{}\label{QTRSensors_8h_source}\mbox{\hyperlink{QTRSensors_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00013\ \textcolor{keyword}{enum\ class}\ \mbox{\hyperlink{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6e}{QTRReadMode}}\ :\ uint8\_t\ \{}
+\DoxyCodeLine{00016\ \ \ \mbox{\hyperlink{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6ead15305d7a4e34e02489c74a5ef542f36}{Off}},}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00020\ \ \ \mbox{\hyperlink{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6ea521c36a31c2762741cf0f8890cbe05e3}{On}},}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00027\ \ \ \mbox{\hyperlink{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6eab861cf336f4ec44ae8edbd8d3473b9d5}{OnAndOff}},}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00034\ \ \ \mbox{\hyperlink{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6ea194540c7816e1e0ee2ea7d726fee0872}{OddEven}},}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00040\ \ \ \mbox{\hyperlink{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6ea64a8e40b79cf77c7a7b40064641a6806}{OddEvenAndOff}},}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00046\ \ \ \mbox{\hyperlink{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6eae1ba155a9f2e8c3be94020eef32a0301}{Manual}}}
+\DoxyCodeLine{00047\ \};}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00050\ \textcolor{keyword}{enum\ class}\ \mbox{\hyperlink{QTRSensors_8h_a567e8f57951b4e85aad8f765b79cb71f}{QTRType}}\ :\ uint8\_t\ \{}
+\DoxyCodeLine{00051\ \ \ Undefined,}
+\DoxyCodeLine{00052\ \ \ RC,}
+\DoxyCodeLine{00053\ \ \ Analog}
+\DoxyCodeLine{00054\ \};}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00057\ \textcolor{keyword}{enum\ class}\ \mbox{\hyperlink{QTRSensors_8h_a8a1fa51172192d7a2b1ee72a4a2c0fde}{QTREmitters}}\ :\ uint8\_t\ \{}
+\DoxyCodeLine{00058\ \ \ All,}
+\DoxyCodeLine{00059\ \ \ Odd,}
+\DoxyCodeLine{00060\ \ \ Even,}
+\DoxyCodeLine{00061\ \ \ None}
+\DoxyCodeLine{00062\ \};}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00065\ \textcolor{keyword}{const}\ uint8\_t\ \mbox{\hyperlink{QTRSensors_8h_a34bd40d76d9d5dd9578b47df2b074fd2}{QTRNoEmitterPin}}\ =\ 255;}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00068\ \textcolor{keyword}{const}\ uint16\_t\ \mbox{\hyperlink{QTRSensors_8h_a7e8cb489efd119c74d039abf8461295b}{QTRRCDefaultTimeout}}\ =\ 2500;}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00071\ \textcolor{keyword}{const}\ uint8\_t\ \mbox{\hyperlink{QTRSensors_8h_a98359c1fa9fbe1bbaaf2df0576b8bb24}{QTRMaxSensors}}\ =\ 31;}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00081\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classQTRSensors}{QTRSensors}}}
+\DoxyCodeLine{00082\ \{}
+\DoxyCodeLine{00083\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \ \ \ \ \mbox{\hyperlink{classQTRSensors}{QTRSensors}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \ \ \ \ \mbox{\hyperlink{classQTRSensors}{\string~QTRSensors}}();}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00092\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classQTRSensors_a411f4a800c4e297a6b0ada8efece043d}{setTypeRC}}();}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classQTRSensors_a869bfa11368f248f64d981aa583a6afe}{setTypeAnalog}}();}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00104\ \ \ \ \ \mbox{\hyperlink{QTRSensors_8h_a567e8f57951b4e85aad8f765b79cb71f}{QTRType}}\ \mbox{\hyperlink{classQTRSensors_a10aa2c9b77898944ce0ec3f96ff0d19c}{getType}}()\ \{\ \textcolor{keywordflow}{return}\ \_type;\ \}}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00132\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classQTRSensors_affa15ba6cbde69fd375f41e5fc63b156}{setSensorPins}}(\textcolor{keyword}{const}\ uint8\_t\ *\ pins,\ uint8\_t\ sensorCount);}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00152\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classQTRSensors_ab145ce7a7269f51b45863dafb9d61afd}{setTimeout}}(uint16\_t\ timeout);}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00159\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{classQTRSensors_aa16e0b2e8c7e728b9dc21d7bbcb257b9}{getTimeout}}()\ \{\ \textcolor{keywordflow}{return}\ \_timeout;\ \}}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00170\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classQTRSensors_a6f72b422c1cd71ab5c0df661f27a0d8b}{setSamplesPerSensor}}(uint8\_t\ samples);}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00178\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{classQTRSensors_a51939f4491e5d462dc6a95b659af2f59}{getSamplesPerSensor}}()\ \{\ \textcolor{keywordflow}{return}\ \_samplesPerSensor;\ \}}
+\DoxyCodeLine{00179\ }
+\DoxyCodeLine{00199\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classQTRSensors_a50ddff66a733e268eece669f6e48486a}{setEmitterPin}}(uint8\_t\ emitterPin);}
+\DoxyCodeLine{00200\ }
+\DoxyCodeLine{00216\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classQTRSensors_a6f49e24d8eaa2a59ef313c24ab722a86}{setEmitterPins}}(uint8\_t\ oddEmitterPin,\ uint8\_t\ evenEmitterPin);}
+\DoxyCodeLine{00217\ }
+\DoxyCodeLine{00225\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classQTRSensors_af4fea64349f7d85830b41ded4aa63ce8}{releaseEmitterPins}}();}
+\DoxyCodeLine{00226\ }
+\DoxyCodeLine{00233\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{classQTRSensors_a2e4d10939104a1f9ee7cdd3fddaf502e}{getEmitterPinCount}}()\ \{\ \textcolor{keywordflow}{return}\ \_emitterPinCount;\ \}}
+\DoxyCodeLine{00234\ }
+\DoxyCodeLine{00245\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{classQTRSensors_aa80468e7f337449a0f5b75152bec1e66}{getEmitterPin}}()\ \{\ \textcolor{keywordflow}{return}\ \_oddEmitterPin;\ \}}
+\DoxyCodeLine{00246\ }
+\DoxyCodeLine{00257\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{classQTRSensors_a290dab6e34c8d3e8f528ee534e6f1564}{getOddEmitterPin}}()\ \{\ \textcolor{keywordflow}{return}\ \_oddEmitterPin;\ \}}
+\DoxyCodeLine{00258\ }
+\DoxyCodeLine{00269\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{classQTRSensors_a2c8b5a943d2945c2a8aa998170d5a6c8}{getEvenEmitterPin}}()\ \ \{\ \textcolor{keywordflow}{return}\ \_evenEmitterPin;\ \}}
+\DoxyCodeLine{00270\ }
+\DoxyCodeLine{00278\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classQTRSensors_a781887fb85ebb9c97df4c9e97a7be6b1}{setDimmable}}()\ \{\ \_dimmable\ =\ \textcolor{keyword}{true};\ \}}
+\DoxyCodeLine{00279\ }
+\DoxyCodeLine{00287\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classQTRSensors_a80964b2b065c02c5a7153bd600aedf6d}{setNonDimmable}}()\ \{\ \_dimmable\ =\ \textcolor{keyword}{false};\ \}}
+\DoxyCodeLine{00288\ }
+\DoxyCodeLine{00295\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classQTRSensors_abeeed31a5324b6b698a0febf17a5a68c}{getDimmable}}()\ \{\ \textcolor{keywordflow}{return}\ \_dimmable;\ \}}
+\DoxyCodeLine{00296\ }
+\DoxyCodeLine{00313\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classQTRSensors_a33c0a5c97bb7a3546a6b30ae4baa209a}{setDimmingLevel}}(uint8\_t\ dimmingLevel);}
+\DoxyCodeLine{00314\ }
+\DoxyCodeLine{00320\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{classQTRSensors_aae40198038085bdff136547448b7ed45}{getDimmingLevel}}()\ \{\ \textcolor{keywordflow}{return}\ \_dimmingLevel;\ \}}
+\DoxyCodeLine{00321\ }
+\DoxyCodeLine{00336\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classQTRSensors_a85d891a1c02f106ed3403a658217787b}{emittersOff}}(\mbox{\hyperlink{QTRSensors_8h_a8a1fa51172192d7a2b1ee72a4a2c0fde}{QTREmitters}}\ emitters\ =\ QTREmitters::All,\ \textcolor{keywordtype}{bool}\ wait\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00337\ }
+\DoxyCodeLine{00355\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classQTRSensors_a85a0b3afec856d92393bf6f7c05a1f90}{emittersOn}}(\mbox{\hyperlink{QTRSensors_8h_a8a1fa51172192d7a2b1ee72a4a2c0fde}{QTREmitters}}\ emitters\ =\ QTREmitters::All,\ \textcolor{keywordtype}{bool}\ wait\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00356\ }
+\DoxyCodeLine{00370\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classQTRSensors_ad90c2175c3081ffd177d7049eff16333}{emittersSelect}}(\mbox{\hyperlink{QTRSensors_8h_a8a1fa51172192d7a2b1ee72a4a2c0fde}{QTREmitters}}\ emitters);}
+\DoxyCodeLine{00371\ }
+\DoxyCodeLine{00396\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classQTRSensors_a0021d844b691e1cf9e0fac2530b89c7e}{calibrate}}(\mbox{\hyperlink{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6e}{QTRReadMode}}\ mode\ =\ \mbox{\hyperlink{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6ea521c36a31c2762741cf0f8890cbe05e3}{QTRReadMode::On}});}
+\DoxyCodeLine{00397\ }
+\DoxyCodeLine{00399\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classQTRSensors_aa840b6ef17562d41edf21ddd08e0672e}{resetCalibration}}();}
+\DoxyCodeLine{00400\ }
+\DoxyCodeLine{00428\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classQTRSensors_a92f25ec98543d6e87bf65a9db67c69ef}{read}}(uint16\_t\ *\ sensorValues,\ \mbox{\hyperlink{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6e}{QTRReadMode}}\ mode\ =\ \mbox{\hyperlink{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6ea521c36a31c2762741cf0f8890cbe05e3}{QTRReadMode::On}});}
+\DoxyCodeLine{00429\ }
+\DoxyCodeLine{00448\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classQTRSensors_aa2f5d7779744e5d93f6935d2cdf589eb}{readCalibrated}}(uint16\_t\ *\ sensorValues,\ \mbox{\hyperlink{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6e}{QTRReadMode}}\ mode\ =\ \mbox{\hyperlink{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6ea521c36a31c2762741cf0f8890cbe05e3}{QTRReadMode::On}});}
+\DoxyCodeLine{00449\ }
+\DoxyCodeLine{00491\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{classQTRSensors_a8f2a5239ae547928284c5f81cd7ec89c}{readLineBlack}}(uint16\_t\ *\ sensorValues,\ \mbox{\hyperlink{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6e}{QTRReadMode}}\ mode\ =\ \mbox{\hyperlink{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6ea521c36a31c2762741cf0f8890cbe05e3}{QTRReadMode::On}})}
+\DoxyCodeLine{00492\ \ \ \ \ \{}
+\DoxyCodeLine{00493\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ readLinePrivate(sensorValues,\ mode,\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00494\ \ \ \ \ \}}
+\DoxyCodeLine{00495\ }
+\DoxyCodeLine{00514\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{classQTRSensors_a231f1ef20c2a7ba325bdb794fc2dedf9}{readLineWhite}}(uint16\_t\ *\ sensorValues,\ \mbox{\hyperlink{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6e}{QTRReadMode}}\ mode\ =\ \mbox{\hyperlink{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6ea521c36a31c2762741cf0f8890cbe05e3}{QTRReadMode::On}})}
+\DoxyCodeLine{00515\ \ \ \ \ \{}
+\DoxyCodeLine{00516\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ readLinePrivate(sensorValues,\ mode,\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00517\ \ \ \ \ \}}
+\DoxyCodeLine{00518\ }
+\DoxyCodeLine{00519\ }
+\DoxyCodeLine{00523\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structQTRSensors_1_1CalibrationData}{CalibrationData}}}
+\DoxyCodeLine{00524\ \ \ \ \ \{}
+\DoxyCodeLine{00526\ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structQTRSensors_1_1CalibrationData_ab781ae5ef2d5a091c03297da9c167b9d}{initialized}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00528\ \ \ \ \ \ \ uint16\_t\ *\ \mbox{\hyperlink{structQTRSensors_1_1CalibrationData_a2c28f12a4f9aecb33eefa74638092ed8}{minimum}}\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00530\ \ \ \ \ \ \ uint16\_t\ *\ \mbox{\hyperlink{structQTRSensors_1_1CalibrationData_a6dde6acb179f033a1f3fc08cc048de43}{maximum}}\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00531\ \ \ \ \ \};}
+\DoxyCodeLine{00532\ }
+\DoxyCodeLine{00541\ }
+\DoxyCodeLine{00543\ \ \ \ \ \mbox{\hyperlink{structQTRSensors_1_1CalibrationData}{CalibrationData}}\ \mbox{\hyperlink{classQTRSensors_adba8c75f5bc2cf57732ee2b96507f339}{calibrationOn}};}
+\DoxyCodeLine{00544\ }
+\DoxyCodeLine{00546\ \ \ \ \ \mbox{\hyperlink{structQTRSensors_1_1CalibrationData}{CalibrationData}}\ \mbox{\hyperlink{classQTRSensors_a868276364c39750f9914abd50ec68c9d}{calibrationOff}};}
+\DoxyCodeLine{00547\ }
+\DoxyCodeLine{00549\ }
+\DoxyCodeLine{00550\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00551\ }
+\DoxyCodeLine{00552\ \ \ \ \ uint16\_t\ emittersOnWithPin(uint8\_t\ pin);}
+\DoxyCodeLine{00553\ }
+\DoxyCodeLine{00554\ \ \ \ \ \textcolor{comment}{//\ Handles\ the\ actual\ calibration,\ including\ (re)allocating\ and}}
+\DoxyCodeLine{00555\ \ \ \ \ \textcolor{comment}{//\ initializing\ the\ storage\ for\ the\ calibration\ values\ if\ necessary.}}
+\DoxyCodeLine{00556\ \ \ \ \ \textcolor{keywordtype}{void}\ calibrateOnOrOff(\mbox{\hyperlink{structQTRSensors_1_1CalibrationData}{CalibrationData}}\ \&\ calibration,\ \mbox{\hyperlink{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6e}{QTRReadMode}}\ mode);}
+\DoxyCodeLine{00557\ }
+\DoxyCodeLine{00558\ \ \ \ \ \textcolor{keywordtype}{void}\ readPrivate(uint16\_t\ *\ sensorValues,\ uint8\_t\ start\ =\ 0,\ uint8\_t\ step\ =\ 1);}
+\DoxyCodeLine{00559\ }
+\DoxyCodeLine{00560\ \ \ \ \ uint16\_t\ readLinePrivate(uint16\_t\ *\ sensorValues,\ \mbox{\hyperlink{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6e}{QTRReadMode}}\ mode,\ \textcolor{keywordtype}{bool}\ invertReadings);}
+\DoxyCodeLine{00561\ }
+\DoxyCodeLine{00562\ \ \ \ \ \mbox{\hyperlink{QTRSensors_8h_a567e8f57951b4e85aad8f765b79cb71f}{QTRType}}\ \_type\ =\ QTRType::Undefined;}
+\DoxyCodeLine{00563\ }
+\DoxyCodeLine{00564\ \ \ \ \ uint8\_t\ *\ \_sensorPins\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00565\ \ \ \ \ uint8\_t\ \_sensorCount\ =\ 0;}
+\DoxyCodeLine{00566\ }
+\DoxyCodeLine{00567\ \ \ \ \ uint16\_t\ \_timeout\ =\ \mbox{\hyperlink{QTRSensors_8h_a7e8cb489efd119c74d039abf8461295b}{QTRRCDefaultTimeout}};\ \textcolor{comment}{//\ only\ used\ for\ RC\ sensors}}
+\DoxyCodeLine{00568\ \ \ \ \ uint16\_t\ \_maxValue\ =\ \mbox{\hyperlink{QTRSensors_8h_a7e8cb489efd119c74d039abf8461295b}{QTRRCDefaultTimeout}};\ \textcolor{comment}{//\ the\ maximum\ value\ returned\ by\ readPrivate()}}
+\DoxyCodeLine{00569\ \ \ \ \ uint8\_t\ \_samplesPerSensor\ =\ 4;\ \textcolor{comment}{//\ only\ used\ for\ analog\ sensors}}
+\DoxyCodeLine{00570\ }
+\DoxyCodeLine{00571\ \ \ \ \ uint8\_t\ \_oddEmitterPin\ =\ \mbox{\hyperlink{QTRSensors_8h_a34bd40d76d9d5dd9578b47df2b074fd2}{QTRNoEmitterPin}};\ \textcolor{comment}{//\ also\ used\ for\ single\ emitter\ pin}}
+\DoxyCodeLine{00572\ \ \ \ \ uint8\_t\ \_evenEmitterPin\ =\ \mbox{\hyperlink{QTRSensors_8h_a34bd40d76d9d5dd9578b47df2b074fd2}{QTRNoEmitterPin}};}
+\DoxyCodeLine{00573\ \ \ \ \ uint8\_t\ \_emitterPinCount\ =\ 0;}
+\DoxyCodeLine{00574\ }
+\DoxyCodeLine{00575\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_dimmable\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00576\ \ \ \ \ uint8\_t\ \_dimmingLevel\ =\ 0;}
+\DoxyCodeLine{00577\ }
+\DoxyCodeLine{00578\ \ \ \ \ uint16\_t\ \_lastPosition\ =\ 0;}
+\DoxyCodeLine{00579\ \};}
+
+\end{DoxyCode}

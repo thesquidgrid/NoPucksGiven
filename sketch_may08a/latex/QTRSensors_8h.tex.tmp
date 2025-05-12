@@ -1,0 +1,89 @@
+\doxysection{QTRSensors.\+h File Reference}
+\hypertarget{QTRSensors_8h}{}\label{QTRSensors_8h}\index{QTRSensors.h@{QTRSensors.h}}
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+Include dependency graph for QTRSensors.\+h\+:
+% FIG 0
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classQTRSensors}{QTRSensors}}
+\begin{DoxyCompactList}\small\item\em Represents a QTR sensor array. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structQTRSensors_1_1CalibrationData}{QTRSensors\+::\+Calibration\+Data}}
+\begin{DoxyCompactList}\small\item\em Stores sensor calibration data. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum class \mbox{\hyperlink{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6e}{QTRRead\+Mode}} \+: uint8\+\_\+t \{ \newline
+\mbox{\hyperlink{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6ead15305d7a4e34e02489c74a5ef542f36}{Off}}
+, \mbox{\hyperlink{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6ea521c36a31c2762741cf0f8890cbe05e3}{On}}
+, \mbox{\hyperlink{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6eab861cf336f4ec44ae8edbd8d3473b9d5}{On\+And\+Off}}
+, \mbox{\hyperlink{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6ea194540c7816e1e0ee2ea7d726fee0872}{Odd\+Even}}
+, \newline
+\mbox{\hyperlink{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6ea64a8e40b79cf77c7a7b40064641a6806}{Odd\+Even\+And\+Off}}
+, \mbox{\hyperlink{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6eae1ba155a9f2e8c3be94020eef32a0301}{Manual}}
+ \}
+\begin{DoxyCompactList}\small\item\em Emitter behavior when taking readings. \end{DoxyCompactList}\item 
+\Hypertarget{QTRSensors_8h_a567e8f57951b4e85aad8f765b79cb71f}\label{QTRSensors_8h_a567e8f57951b4e85aad8f765b79cb71f} 
+enum class \mbox{\hyperlink{QTRSensors_8h_a567e8f57951b4e85aad8f765b79cb71f}{QTRType}} \+: uint8\+\_\+t \{ {\bfseries Undefined}
+, {\bfseries RC}
+, {\bfseries Analog}
+ \}
+\begin{DoxyCompactList}\small\item\em Sensor types. \end{DoxyCompactList}\item 
+\Hypertarget{QTRSensors_8h_a8a1fa51172192d7a2b1ee72a4a2c0fde}\label{QTRSensors_8h_a8a1fa51172192d7a2b1ee72a4a2c0fde} 
+enum class \mbox{\hyperlink{QTRSensors_8h_a8a1fa51172192d7a2b1ee72a4a2c0fde}{QTREmitters}} \+: uint8\+\_\+t \{ {\bfseries All}
+, {\bfseries Odd}
+, {\bfseries Even}
+, {\bfseries None}
+ \}
+\begin{DoxyCompactList}\small\item\em Emitters selected to turn on or off. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{QTRSensors_8h_a34bd40d76d9d5dd9578b47df2b074fd2}\label{QTRSensors_8h_a34bd40d76d9d5dd9578b47df2b074fd2} 
+const uint8\+\_\+t {\bfseries QTRNo\+Emitter\+Pin} = 255
+\begin{DoxyCompactList}\small\item\em Represents an undefined emitter control pin. \end{DoxyCompactList}\item 
+\Hypertarget{QTRSensors_8h_a7e8cb489efd119c74d039abf8461295b}\label{QTRSensors_8h_a7e8cb489efd119c74d039abf8461295b} 
+const uint16\+\_\+t {\bfseries QTRRCDefault\+Timeout} = 2500
+\begin{DoxyCompactList}\small\item\em Default timeout for RC sensors (in microseconds). \end{DoxyCompactList}\item 
+\Hypertarget{QTRSensors_8h_a98359c1fa9fbe1bbaaf2df0576b8bb24}\label{QTRSensors_8h_a98359c1fa9fbe1bbaaf2df0576b8bb24} 
+const uint8\+\_\+t {\bfseries QTRMax\+Sensors} = 31
+\begin{DoxyCompactList}\small\item\em The maximum number of sensors supported by an instance of this class. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6e}\label{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6e} 
+\index{QTRSensors.h@{QTRSensors.h}!QTRReadMode@{QTRReadMode}}
+\index{QTRReadMode@{QTRReadMode}!QTRSensors.h@{QTRSensors.h}}
+\doxysubsubsection{\texorpdfstring{QTRReadMode}{QTRReadMode}}
+{\footnotesize\ttfamily enum class \mbox{\hyperlink{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6e}{QTRRead\+Mode}} \+: uint8\+\_\+t\hspace{0.3cm}{\ttfamily [strong]}}
+
+
+
+Emitter behavior when taking readings. 
+
+Note that emitter control will only work if you specify a valid emitter pin with set\+Emitter\+Pin(), and the odd/even modes will only work if you are using a second-\/generation QTR or QTRX sensor with two emitter control pins and you specify both pins with set\+Emitter\+Pins(). \begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Off@{Off}!QTRSensors.h@{QTRSensors.h}}\index{QTRSensors.h@{QTRSensors.h}!Off@{Off}}}\Hypertarget{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6ead15305d7a4e34e02489c74a5ef542f36}\label{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6ead15305d7a4e34e02489c74a5ef542f36} 
+Off&Each reading is made without turning on the infrared (IR) emitters. The reading represents ambient light levels near the sensor. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{On@{On}!QTRSensors.h@{QTRSensors.h}}\index{QTRSensors.h@{QTRSensors.h}!On@{On}}}\Hypertarget{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6ea521c36a31c2762741cf0f8890cbe05e3}\label{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6ea521c36a31c2762741cf0f8890cbe05e3} 
+On&Each reading is made with the emitters on. The reading is a measure of reflectance. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{OnAndOff@{OnAndOff}!QTRSensors.h@{QTRSensors.h}}\index{QTRSensors.h@{QTRSensors.h}!OnAndOff@{OnAndOff}}}\Hypertarget{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6eab861cf336f4ec44ae8edbd8d3473b9d5}\label{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6eab861cf336f4ec44ae8edbd8d3473b9d5} 
+On\+And\+Off&For each sensor, a reading is made in both the on and off states. The value returned is {\bfseries{on + max - off}}, where {\bfseries{on}} and {\bfseries{off}} are the reading with the emitters on and off, respectively, and {\bfseries{max}} is the maximum possible sensor reading. This mode can reduce the amount of interference from uneven ambient lighting. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{OddEven@{OddEven}!QTRSensors.h@{QTRSensors.h}}\index{QTRSensors.h@{QTRSensors.h}!OddEven@{OddEven}}}\Hypertarget{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6ea194540c7816e1e0ee2ea7d726fee0872}\label{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6ea194540c7816e1e0ee2ea7d726fee0872} 
+Odd\+Even&The odd-\/numbered sensors are read with the odd-\/numbered emitters on, then the even-\/numbered sensors are read with the even-\/numbered emitters on. This mode can reduce interference between adjacent sensors, especially on QTRX sensor boards. It is only usable with second-\/generation QTR and QTRX sensor arrays that have two emitter control pins. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{OddEvenAndOff@{OddEvenAndOff}!QTRSensors.h@{QTRSensors.h}}\index{QTRSensors.h@{QTRSensors.h}!OddEvenAndOff@{OddEvenAndOff}}}\Hypertarget{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6ea64a8e40b79cf77c7a7b40064641a6806}\label{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6ea64a8e40b79cf77c7a7b40064641a6806} 
+Odd\+Even\+And\+Off&The odd and even sensors are read separately with the respective emitters on, then all sensors are read with emitters off and {\bfseries{on + max - off}} is returned. (In other words, this mode combines Odd\+Even and On\+And\+Off.) \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Manual@{Manual}!QTRSensors.h@{QTRSensors.h}}\index{QTRSensors.h@{QTRSensors.h}!Manual@{Manual}}}\Hypertarget{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6eae1ba155a9f2e8c3be94020eef32a0301}\label{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6eae1ba155a9f2e8c3be94020eef32a0301} 
+Manual&Calling read() with this mode prevents it from automatically controlling the emitters\+: they are left in their existing states, which allows manual control of the emitters for testing and advanced use. Calibrating and obtaining calibrated readings are not supported with this mode. \\
+\hline
+
+\end{DoxyEnumFields}

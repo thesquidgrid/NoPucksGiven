@@ -1,0 +1,593 @@
+\doxysection{QTRSensors Class Reference}
+\hypertarget{classQTRSensors}{}\label{classQTRSensors}\index{QTRSensors@{QTRSensors}}
+
+
+Represents a QTR sensor array.  
+
+
+
+
+{\ttfamily \#include $<$QTRSensors.\+h$>$}
+
+
+
+Collaboration diagram for QTRSensors\+:
+% FIG 0
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structQTRSensors_1_1CalibrationData}{Calibration\+Data}}
+\begin{DoxyCompactList}\small\item\em Stores sensor calibration data. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classQTRSensors_a411f4a800c4e297a6b0ada8efece043d}{set\+Type\+RC}} ()
+\begin{DoxyCompactList}\small\item\em Specifies that the sensors are RC. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classQTRSensors_a869bfa11368f248f64d981aa583a6afe}{set\+Type\+Analog}} ()
+\begin{DoxyCompactList}\small\item\em Specifies that the sensor type is analog. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{QTRSensors_8h_a567e8f57951b4e85aad8f765b79cb71f}{QTRType}} \mbox{\hyperlink{classQTRSensors_a10aa2c9b77898944ce0ec3f96ff0d19c}{get\+Type}} ()
+\begin{DoxyCompactList}\small\item\em Returns the type of the sensors. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classQTRSensors_affa15ba6cbde69fd375f41e5fc63b156}{set\+Sensor\+Pins}} (const uint8\+\_\+t \texorpdfstring{$\ast$}{*}pins, uint8\+\_\+t sensor\+Count)
+\begin{DoxyCompactList}\small\item\em Sets the sensor pins. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classQTRSensors_ab145ce7a7269f51b45863dafb9d61afd}{set\+Timeout}} (uint16\+\_\+t timeout)
+\begin{DoxyCompactList}\small\item\em Sets the timeout for RC sensors. \end{DoxyCompactList}\item 
+uint16\+\_\+t \mbox{\hyperlink{classQTRSensors_aa16e0b2e8c7e728b9dc21d7bbcb257b9}{get\+Timeout}} ()
+\begin{DoxyCompactList}\small\item\em Returns the timeout for RC sensors. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classQTRSensors_a6f72b422c1cd71ab5c0df661f27a0d8b}{set\+Samples\+Per\+Sensor}} (uint8\+\_\+t samples)
+\begin{DoxyCompactList}\small\item\em Sets the number of analog readings to average per analog sensor. \end{DoxyCompactList}\item 
+uint16\+\_\+t \mbox{\hyperlink{classQTRSensors_a51939f4491e5d462dc6a95b659af2f59}{get\+Samples\+Per\+Sensor}} ()
+\begin{DoxyCompactList}\small\item\em Returns the number of analog readings to average per analog sensor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classQTRSensors_a50ddff66a733e268eece669f6e48486a}{set\+Emitter\+Pin}} (uint8\+\_\+t emitter\+Pin)
+\begin{DoxyCompactList}\small\item\em Sets the emitter control pin for the sensors. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classQTRSensors_a6f49e24d8eaa2a59ef313c24ab722a86}{set\+Emitter\+Pins}} (uint8\+\_\+t odd\+Emitter\+Pin, uint8\+\_\+t even\+Emitter\+Pin)
+\begin{DoxyCompactList}\small\item\em Sets separate odd and even emitter control pins for the sensors. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classQTRSensors_af4fea64349f7d85830b41ded4aa63ce8}{release\+Emitter\+Pins}} ()
+\begin{DoxyCompactList}\small\item\em Releases emitter pin/pins that have been set. \end{DoxyCompactList}\item 
+uint8\+\_\+t \mbox{\hyperlink{classQTRSensors_a2e4d10939104a1f9ee7cdd3fddaf502e}{get\+Emitter\+Pin\+Count}} ()
+\begin{DoxyCompactList}\small\item\em Returns the number of emitter control pins in use. \end{DoxyCompactList}\item 
+uint8\+\_\+t \mbox{\hyperlink{classQTRSensors_aa80468e7f337449a0f5b75152bec1e66}{get\+Emitter\+Pin}} ()
+\begin{DoxyCompactList}\small\item\em Returns the emitter control pin. \end{DoxyCompactList}\item 
+uint8\+\_\+t \mbox{\hyperlink{classQTRSensors_a290dab6e34c8d3e8f528ee534e6f1564}{get\+Odd\+Emitter\+Pin}} ()
+\begin{DoxyCompactList}\small\item\em Returns the odd emitter control pin. \end{DoxyCompactList}\item 
+uint8\+\_\+t \mbox{\hyperlink{classQTRSensors_a2c8b5a943d2945c2a8aa998170d5a6c8}{get\+Even\+Emitter\+Pin}} ()
+\begin{DoxyCompactList}\small\item\em Returns the even emitter control pin. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classQTRSensors_a781887fb85ebb9c97df4c9e97a7be6b1}{set\+Dimmable}} ()
+\begin{DoxyCompactList}\small\item\em Specifies that the sensors are dimmable. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classQTRSensors_a80964b2b065c02c5a7153bd600aedf6d}{set\+Non\+Dimmable}} ()
+\begin{DoxyCompactList}\small\item\em Specifies that the sensors are non-\/dimmable. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classQTRSensors_abeeed31a5324b6b698a0febf17a5a68c}{get\+Dimmable}} ()
+\begin{DoxyCompactList}\small\item\em Returns whether the sensors are dimmable. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classQTRSensors_a33c0a5c97bb7a3546a6b30ae4baa209a}{set\+Dimming\+Level}} (uint8\+\_\+t dimming\+Level)
+\begin{DoxyCompactList}\small\item\em Sets the dimming level. \end{DoxyCompactList}\item 
+uint8\+\_\+t \mbox{\hyperlink{classQTRSensors_aae40198038085bdff136547448b7ed45}{get\+Dimming\+Level}} ()
+\begin{DoxyCompactList}\small\item\em Returns the dimming level. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classQTRSensors_a85d891a1c02f106ed3403a658217787b}{emitters\+Off}} (\mbox{\hyperlink{QTRSensors_8h_a8a1fa51172192d7a2b1ee72a4a2c0fde}{QTREmitters}} emitters=QTREmitters\+::\+All, bool wait=true)
+\begin{DoxyCompactList}\small\item\em Turns the IR LEDs off. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classQTRSensors_a85a0b3afec856d92393bf6f7c05a1f90}{emitters\+On}} (\mbox{\hyperlink{QTRSensors_8h_a8a1fa51172192d7a2b1ee72a4a2c0fde}{QTREmitters}} emitters=QTREmitters\+::\+All, bool wait=true)
+\begin{DoxyCompactList}\small\item\em Turns the IR LEDs on. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classQTRSensors_ad90c2175c3081ffd177d7049eff16333}{emitters\+Select}} (\mbox{\hyperlink{QTRSensors_8h_a8a1fa51172192d7a2b1ee72a4a2c0fde}{QTREmitters}} emitters)
+\begin{DoxyCompactList}\small\item\em Turns on the selected emitters and turns off the other emitters with optimized timing. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classQTRSensors_a0021d844b691e1cf9e0fac2530b89c7e}{calibrate}} (\mbox{\hyperlink{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6e}{QTRRead\+Mode}} mode=\mbox{\hyperlink{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6ea521c36a31c2762741cf0f8890cbe05e3}{QTRRead\+Mode\+::\+On}})
+\begin{DoxyCompactList}\small\item\em Reads the sensors for calibration. \end{DoxyCompactList}\item 
+\Hypertarget{classQTRSensors_aa840b6ef17562d41edf21ddd08e0672e}\label{classQTRSensors_aa840b6ef17562d41edf21ddd08e0672e} 
+void {\bfseries reset\+Calibration} ()
+\begin{DoxyCompactList}\small\item\em Resets all calibration that has been done. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classQTRSensors_a92f25ec98543d6e87bf65a9db67c69ef}{read}} (uint16\+\_\+t \texorpdfstring{$\ast$}{*}sensor\+Values, \mbox{\hyperlink{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6e}{QTRRead\+Mode}} mode=\mbox{\hyperlink{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6ea521c36a31c2762741cf0f8890cbe05e3}{QTRRead\+Mode\+::\+On}})
+\begin{DoxyCompactList}\small\item\em Reads the raw sensor values into an array. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classQTRSensors_aa2f5d7779744e5d93f6935d2cdf589eb}{read\+Calibrated}} (uint16\+\_\+t \texorpdfstring{$\ast$}{*}sensor\+Values, \mbox{\hyperlink{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6e}{QTRRead\+Mode}} mode=\mbox{\hyperlink{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6ea521c36a31c2762741cf0f8890cbe05e3}{QTRRead\+Mode\+::\+On}})
+\begin{DoxyCompactList}\small\item\em Reads the sensors and provides calibrated values between 0 and 1000. \end{DoxyCompactList}\item 
+uint16\+\_\+t \mbox{\hyperlink{classQTRSensors_a8f2a5239ae547928284c5f81cd7ec89c}{read\+Line\+Black}} (uint16\+\_\+t \texorpdfstring{$\ast$}{*}sensor\+Values, \mbox{\hyperlink{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6e}{QTRRead\+Mode}} mode=\mbox{\hyperlink{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6ea521c36a31c2762741cf0f8890cbe05e3}{QTRRead\+Mode\+::\+On}})
+\begin{DoxyCompactList}\small\item\em Reads the sensors, provides calibrated values, and returns an estimated black line position. \end{DoxyCompactList}\item 
+uint16\+\_\+t \mbox{\hyperlink{classQTRSensors_a231f1ef20c2a7ba325bdb794fc2dedf9}{read\+Line\+White}} (uint16\+\_\+t \texorpdfstring{$\ast$}{*}sensor\+Values, \mbox{\hyperlink{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6e}{QTRRead\+Mode}} mode=\mbox{\hyperlink{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6ea521c36a31c2762741cf0f8890cbe05e3}{QTRRead\+Mode\+::\+On}})
+\begin{DoxyCompactList}\small\item\em Reads the sensors, provides calibrated values, and returns an estimated white line position. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{Indent}\textbf{ Calibration data}\par
+{\em See \doxylink{classQTRSensors_a0021d844b691e1cf9e0fac2530b89c7e}{calibrate()} and \doxylink{classQTRSensors_aa2f5d7779744e5d93f6935d2cdf589eb}{read\+Calibrated()} for details.
+
+These variables are made public so that you can use them for your own calculations and do things like saving the values to EEPROM, performing sanity checking, etc. }\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classQTRSensors_adba8c75f5bc2cf57732ee2b96507f339}\label{classQTRSensors_adba8c75f5bc2cf57732ee2b96507f339} 
+\mbox{\hyperlink{structQTRSensors_1_1CalibrationData}{Calibration\+Data}} {\bfseries calibration\+On}
+\begin{DoxyCompactList}\small\item\em Data from calibrating with emitters on. \end{DoxyCompactList}\item 
+\Hypertarget{classQTRSensors_a868276364c39750f9914abd50ec68c9d}\label{classQTRSensors_a868276364c39750f9914abd50ec68c9d} 
+\mbox{\hyperlink{structQTRSensors_1_1CalibrationData}{Calibration\+Data}} {\bfseries calibration\+Off}
+\begin{DoxyCompactList}\small\item\em Data from calibrating with emitters off. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+
+
+\doxysubsection{Detailed Description}
+Represents a QTR sensor array. 
+
+An instance of this class represents a QTR sensor array, consisting of one or more sensors of the same type. This could be either a single QTR sensor board or multiple boards controlled as a group.
+
+See md\+\_\+usage for an overview of how this library can be used and some example code. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classQTRSensors_a0021d844b691e1cf9e0fac2530b89c7e}\label{classQTRSensors_a0021d844b691e1cf9e0fac2530b89c7e} 
+\index{QTRSensors@{QTRSensors}!calibrate@{calibrate}}
+\index{calibrate@{calibrate}!QTRSensors@{QTRSensors}}
+\doxysubsubsection{\texorpdfstring{calibrate()}{calibrate()}}
+{\footnotesize\ttfamily void QTRSensors\+::calibrate (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6e}{QTRRead\+Mode}}}]{mode = {\ttfamily \mbox{\hyperlink{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6ea521c36a31c2762741cf0f8890cbe05e3}{QTRRead\+Mode\+::\+On}}} }\end{DoxyParamCaption})}
+
+
+
+Reads the sensors for calibration. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mode} & The emitter behavior during calibration, as a member of the \doxylink{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6e}{QTRRead\+Mode} enum. The default is \doxylink{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6ea521c36a31c2762741cf0f8890cbe05e3}{QTRRead\+Mode\+::\+On}. Manual emitter control with \doxylink{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6eae1ba155a9f2e8c3be94020eef32a0301}{QTRRead\+Mode\+::\+Manual} is not supported.\\
+\hline
+\end{DoxyParams}
+This method reads the sensors 10 times and uses the results for calibration. The sensor values are not returned; instead, the maximum and minimum values found over time are stored in \doxylink{classQTRSensors_adba8c75f5bc2cf57732ee2b96507f339}{calibration\+On} and/or \doxylink{classQTRSensors_a868276364c39750f9914abd50ec68c9d}{calibration\+Off} for use by the \doxylink{classQTRSensors_aa2f5d7779744e5d93f6935d2cdf589eb}{read\+Calibrated()} method.
+
+If the storage for the calibration values has not been initialized, this function will (re)allocate the arrays and initialize the maximum and minimum values to 0 and the maximum possible sensor reading, respectively, so that the very first calibration sensor reading will update both of them.
+
+Note that the {\ttfamily minimum} and {\ttfamily maximum} pointers in the \doxylink{structQTRSensors_1_1CalibrationData}{Calibration\+Data} structs will point to arrays of length {\ttfamily sensor\+Count}, as specified in \doxylink{classQTRSensors_affa15ba6cbde69fd375f41e5fc63b156}{set\+Sensor\+Pins()}, and they will only be allocated when \doxylink{classQTRSensors_a0021d844b691e1cf9e0fac2530b89c7e}{calibrate()} is called. If you only calibrate with the emitters on, the calibration arrays that hold the off values will not be allocated (and vice versa).
+
+See md\+\_\+usage for more information and example code. \Hypertarget{classQTRSensors_a85d891a1c02f106ed3403a658217787b}\label{classQTRSensors_a85d891a1c02f106ed3403a658217787b} 
+\index{QTRSensors@{QTRSensors}!emittersOff@{emittersOff}}
+\index{emittersOff@{emittersOff}!QTRSensors@{QTRSensors}}
+\doxysubsubsection{\texorpdfstring{emittersOff()}{emittersOff()}}
+{\footnotesize\ttfamily void QTRSensors\+::emitters\+Off (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{QTRSensors_8h_a8a1fa51172192d7a2b1ee72a4a2c0fde}{QTREmitters}}}]{emitters = {\ttfamily QTREmitters\+:\+:All},  }\item[{bool}]{wait = {\ttfamily true} }\end{DoxyParamCaption})}
+
+
+
+Turns the IR LEDs off. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em emitters} & Which emitters to turn off, as a member of the \doxylink{QTRSensors_8h_a8a1fa51172192d7a2b1ee72a4a2c0fde}{QTREmitters} enum. The default is QTREmitters\+::\+All.\\
+\hline
+{\em wait} & If true (the default), this function delays to give the sensors time to turn off before returning. Otherwise, it returns immediately.\\
+\hline
+\end{DoxyParams}
+This function is mainly for use by the \doxylink{classQTRSensors_a92f25ec98543d6e87bf65a9db67c69ef}{read()} method. Since \doxylink{classQTRSensors_a92f25ec98543d6e87bf65a9db67c69ef}{read()} normally turns the emitters on and off automatically for each reading, calling this function yourself will not affect the readings unless the read mode is \doxylink{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6eae1ba155a9f2e8c3be94020eef32a0301}{QTRRead\+Mode\+::\+Manual}, which tells \doxylink{classQTRSensors_a92f25ec98543d6e87bf65a9db67c69ef}{read()} to leave the emitters alone. \Hypertarget{classQTRSensors_a85a0b3afec856d92393bf6f7c05a1f90}\label{classQTRSensors_a85a0b3afec856d92393bf6f7c05a1f90} 
+\index{QTRSensors@{QTRSensors}!emittersOn@{emittersOn}}
+\index{emittersOn@{emittersOn}!QTRSensors@{QTRSensors}}
+\doxysubsubsection{\texorpdfstring{emittersOn()}{emittersOn()}}
+{\footnotesize\ttfamily void QTRSensors\+::emitters\+On (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{QTRSensors_8h_a8a1fa51172192d7a2b1ee72a4a2c0fde}{QTREmitters}}}]{emitters = {\ttfamily QTREmitters\+:\+:All},  }\item[{bool}]{wait = {\ttfamily true} }\end{DoxyParamCaption})}
+
+
+
+Turns the IR LEDs on. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em emitters} & Which emitters to turn on, as a member of the \doxylink{QTRSensors_8h_a8a1fa51172192d7a2b1ee72a4a2c0fde}{QTREmitters} enum. The default is QTREmitters\+::\+All.\\
+\hline
+{\em wait} & If true (the default), this function delays to give the sensors time to turn on before returning. Otherwise, it returns immediately.\\
+\hline
+\end{DoxyParams}
+If the sensors are dimmable and a dimming level is set, this function will apply the dimming level after turning the emitters on.
+
+This function is mainly for use by the \doxylink{classQTRSensors_a92f25ec98543d6e87bf65a9db67c69ef}{read()} method. Since \doxylink{classQTRSensors_a92f25ec98543d6e87bf65a9db67c69ef}{read()} normally turns the emitters on and off automatically for each reading, calling this function yourself will not affect the readings unless the read mode is \doxylink{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6eae1ba155a9f2e8c3be94020eef32a0301}{QTRRead\+Mode\+::\+Manual}, which tells \doxylink{classQTRSensors_a92f25ec98543d6e87bf65a9db67c69ef}{read()} to leave the emitters alone. \Hypertarget{classQTRSensors_ad90c2175c3081ffd177d7049eff16333}\label{classQTRSensors_ad90c2175c3081ffd177d7049eff16333} 
+\index{QTRSensors@{QTRSensors}!emittersSelect@{emittersSelect}}
+\index{emittersSelect@{emittersSelect}!QTRSensors@{QTRSensors}}
+\doxysubsubsection{\texorpdfstring{emittersSelect()}{emittersSelect()}}
+{\footnotesize\ttfamily void QTRSensors\+::emitters\+Select (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{QTRSensors_8h_a8a1fa51172192d7a2b1ee72a4a2c0fde}{QTREmitters}}}]{emitters }\end{DoxyParamCaption})}
+
+
+
+Turns on the selected emitters and turns off the other emitters with optimized timing. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em emitters} & Which emitters to turn on, as a member of the \doxylink{QTRSensors_8h_a8a1fa51172192d7a2b1ee72a4a2c0fde}{QTREmitters} enum. The other emitters will be turned off.\\
+\hline
+\end{DoxyParams}
+This function turns on the selected emitters while it waits for the other emitters to turn off. For example, {\ttfamily emitters\+Select(\+QTREmitters\+::\+Odd)} turns on the odd-\/numbered emitters while turning off the even-\/numbered emitters. Using this method avoids unnecessary delays compared to calling \doxylink{classQTRSensors_a85d891a1c02f106ed3403a658217787b}{emitters\+Off()} and \doxylink{classQTRSensors_a85a0b3afec856d92393bf6f7c05a1f90}{emitters\+On()} separately, but it still waits for all emitters to be in the right states before returning. \Hypertarget{classQTRSensors_abeeed31a5324b6b698a0febf17a5a68c}\label{classQTRSensors_abeeed31a5324b6b698a0febf17a5a68c} 
+\index{QTRSensors@{QTRSensors}!getDimmable@{getDimmable}}
+\index{getDimmable@{getDimmable}!QTRSensors@{QTRSensors}}
+\doxysubsubsection{\texorpdfstring{getDimmable()}{getDimmable()}}
+{\footnotesize\ttfamily bool QTRSensors\+::get\+Dimmable (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns whether the sensors are dimmable. 
+
+\begin{DoxyReturn}{Returns}
+True if this object is configured to treat the sensors as dimmable, false otherwise.
+\end{DoxyReturn}
+See also \doxylink{classQTRSensors_a781887fb85ebb9c97df4c9e97a7be6b1}{set\+Dimmable()} and \doxylink{classQTRSensors_a80964b2b065c02c5a7153bd600aedf6d}{set\+Non\+Dimmable()}. \Hypertarget{classQTRSensors_aae40198038085bdff136547448b7ed45}\label{classQTRSensors_aae40198038085bdff136547448b7ed45} 
+\index{QTRSensors@{QTRSensors}!getDimmingLevel@{getDimmingLevel}}
+\index{getDimmingLevel@{getDimmingLevel}!QTRSensors@{QTRSensors}}
+\doxysubsubsection{\texorpdfstring{getDimmingLevel()}{getDimmingLevel()}}
+{\footnotesize\ttfamily uint8\+\_\+t QTRSensors\+::get\+Dimming\+Level (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns the dimming level. 
+
+\begin{DoxyReturn}{Returns}
+The dimming level.
+\end{DoxyReturn}
+See also \doxylink{classQTRSensors_a33c0a5c97bb7a3546a6b30ae4baa209a}{set\+Dimming\+Level()}. \Hypertarget{classQTRSensors_aa80468e7f337449a0f5b75152bec1e66}\label{classQTRSensors_aa80468e7f337449a0f5b75152bec1e66} 
+\index{QTRSensors@{QTRSensors}!getEmitterPin@{getEmitterPin}}
+\index{getEmitterPin@{getEmitterPin}!QTRSensors@{QTRSensors}}
+\doxysubsubsection{\texorpdfstring{getEmitterPin()}{getEmitterPin()}}
+{\footnotesize\ttfamily uint8\+\_\+t QTRSensors\+::get\+Emitter\+Pin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns the emitter control pin. 
+
+\begin{DoxyReturn}{Returns}
+The Arduino digital pin number of the emitter control pin (QTRNo\+Emitter\+Pin if undefined).
+\end{DoxyReturn}
+This function is intended for use when there is a single emitter pin specified; you can use \doxylink{classQTRSensors_a290dab6e34c8d3e8f528ee534e6f1564}{get\+Odd\+Emitter\+Pin()} and \doxylink{classQTRSensors_a2c8b5a943d2945c2a8aa998170d5a6c8}{get\+Even\+Emitter\+Pin()} instead when two are specified.
+
+See also \doxylink{classQTRSensors_a50ddff66a733e268eece669f6e48486a}{set\+Emitter\+Pin()}. \Hypertarget{classQTRSensors_a2e4d10939104a1f9ee7cdd3fddaf502e}\label{classQTRSensors_a2e4d10939104a1f9ee7cdd3fddaf502e} 
+\index{QTRSensors@{QTRSensors}!getEmitterPinCount@{getEmitterPinCount}}
+\index{getEmitterPinCount@{getEmitterPinCount}!QTRSensors@{QTRSensors}}
+\doxysubsubsection{\texorpdfstring{getEmitterPinCount()}{getEmitterPinCount()}}
+{\footnotesize\ttfamily uint8\+\_\+t QTRSensors\+::get\+Emitter\+Pin\+Count (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns the number of emitter control pins in use. 
+
+\begin{DoxyReturn}{Returns}
+The number of emitter control pins previously specified (1 with \doxylink{classQTRSensors_a50ddff66a733e268eece669f6e48486a}{set\+Emitter\+Pin()} or 2 with \doxylink{classQTRSensors_a6f49e24d8eaa2a59ef313c24ab722a86}{set\+Emitter\+Pins()}). If no emitter pins have been specified (the default), or if previously specified pins were released with \doxylink{classQTRSensors_af4fea64349f7d85830b41ded4aa63ce8}{release\+Emitter\+Pins()}, this function returns 0. 
+\end{DoxyReturn}
+\Hypertarget{classQTRSensors_a2c8b5a943d2945c2a8aa998170d5a6c8}\label{classQTRSensors_a2c8b5a943d2945c2a8aa998170d5a6c8} 
+\index{QTRSensors@{QTRSensors}!getEvenEmitterPin@{getEvenEmitterPin}}
+\index{getEvenEmitterPin@{getEvenEmitterPin}!QTRSensors@{QTRSensors}}
+\doxysubsubsection{\texorpdfstring{getEvenEmitterPin()}{getEvenEmitterPin()}}
+{\footnotesize\ttfamily uint8\+\_\+t QTRSensors\+::get\+Even\+Emitter\+Pin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns the even emitter control pin. 
+
+\begin{DoxyReturn}{Returns}
+The Arduino digital pin number of the even emitter control pin (QTRNo\+Emitter\+Pin if undefined).
+\end{DoxyReturn}
+This function is intended for use when there are separate odd and even emitter pins specified; you can use \doxylink{classQTRSensors_aa80468e7f337449a0f5b75152bec1e66}{get\+Emitter\+Pin()} instead when only one is specified.
+
+See also \doxylink{classQTRSensors_a290dab6e34c8d3e8f528ee534e6f1564}{get\+Odd\+Emitter\+Pin()} and \doxylink{classQTRSensors_a6f49e24d8eaa2a59ef313c24ab722a86}{set\+Emitter\+Pins()}. \Hypertarget{classQTRSensors_a290dab6e34c8d3e8f528ee534e6f1564}\label{classQTRSensors_a290dab6e34c8d3e8f528ee534e6f1564} 
+\index{QTRSensors@{QTRSensors}!getOddEmitterPin@{getOddEmitterPin}}
+\index{getOddEmitterPin@{getOddEmitterPin}!QTRSensors@{QTRSensors}}
+\doxysubsubsection{\texorpdfstring{getOddEmitterPin()}{getOddEmitterPin()}}
+{\footnotesize\ttfamily uint8\+\_\+t QTRSensors\+::get\+Odd\+Emitter\+Pin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns the odd emitter control pin. 
+
+\begin{DoxyReturn}{Returns}
+The Arduino digital pin number of the odd emitter control pin (QTRNo\+Emitter\+Pin if undefined).
+\end{DoxyReturn}
+This function is intended for use when there are separate odd and even emitter pins specified; you can use \doxylink{classQTRSensors_aa80468e7f337449a0f5b75152bec1e66}{get\+Emitter\+Pin()} instead when only one is specified.
+
+See also \doxylink{classQTRSensors_a2c8b5a943d2945c2a8aa998170d5a6c8}{get\+Even\+Emitter\+Pin()} and \doxylink{classQTRSensors_a6f49e24d8eaa2a59ef313c24ab722a86}{set\+Emitter\+Pins()}. \Hypertarget{classQTRSensors_a51939f4491e5d462dc6a95b659af2f59}\label{classQTRSensors_a51939f4491e5d462dc6a95b659af2f59} 
+\index{QTRSensors@{QTRSensors}!getSamplesPerSensor@{getSamplesPerSensor}}
+\index{getSamplesPerSensor@{getSamplesPerSensor}!QTRSensors@{QTRSensors}}
+\doxysubsubsection{\texorpdfstring{getSamplesPerSensor()}{getSamplesPerSensor()}}
+{\footnotesize\ttfamily uint16\+\_\+t QTRSensors\+::get\+Samples\+Per\+Sensor (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns the number of analog readings to average per analog sensor. 
+
+\begin{DoxyReturn}{Returns}
+The samples per channel for analog sensors.
+\end{DoxyReturn}
+See also \doxylink{classQTRSensors_a6f72b422c1cd71ab5c0df661f27a0d8b}{set\+Samples\+Per\+Sensor()}. \Hypertarget{classQTRSensors_aa16e0b2e8c7e728b9dc21d7bbcb257b9}\label{classQTRSensors_aa16e0b2e8c7e728b9dc21d7bbcb257b9} 
+\index{QTRSensors@{QTRSensors}!getTimeout@{getTimeout}}
+\index{getTimeout@{getTimeout}!QTRSensors@{QTRSensors}}
+\doxysubsubsection{\texorpdfstring{getTimeout()}{getTimeout()}}
+{\footnotesize\ttfamily uint16\+\_\+t QTRSensors\+::get\+Timeout (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns the timeout for RC sensors. 
+
+\begin{DoxyReturn}{Returns}
+The RC sensor timeout in microseconds.
+\end{DoxyReturn}
+See also \doxylink{classQTRSensors_ab145ce7a7269f51b45863dafb9d61afd}{set\+Timeout()}. \Hypertarget{classQTRSensors_a10aa2c9b77898944ce0ec3f96ff0d19c}\label{classQTRSensors_a10aa2c9b77898944ce0ec3f96ff0d19c} 
+\index{QTRSensors@{QTRSensors}!getType@{getType}}
+\index{getType@{getType}!QTRSensors@{QTRSensors}}
+\doxysubsubsection{\texorpdfstring{getType()}{getType()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{QTRSensors_8h_a567e8f57951b4e85aad8f765b79cb71f}{QTRType}} QTRSensors\+::get\+Type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns the type of the sensors. 
+
+\begin{DoxyReturn}{Returns}
+The sensor type as a member of the \doxylink{QTRSensors_8h_a567e8f57951b4e85aad8f765b79cb71f}{QTRType} enum.
+\end{DoxyReturn}
+See also \doxylink{classQTRSensors_a411f4a800c4e297a6b0ada8efece043d}{set\+Type\+RC()} and \doxylink{classQTRSensors_a869bfa11368f248f64d981aa583a6afe}{set\+Type\+Analog()}. \Hypertarget{classQTRSensors_a92f25ec98543d6e87bf65a9db67c69ef}\label{classQTRSensors_a92f25ec98543d6e87bf65a9db67c69ef} 
+\index{QTRSensors@{QTRSensors}!read@{read}}
+\index{read@{read}!QTRSensors@{QTRSensors}}
+\doxysubsubsection{\texorpdfstring{read()}{read()}}
+{\footnotesize\ttfamily void QTRSensors\+::read (\begin{DoxyParamCaption}\item[{uint16\+\_\+t \texorpdfstring{$\ast$}{*}}]{sensor\+Values,  }\item[{\mbox{\hyperlink{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6e}{QTRRead\+Mode}}}]{mode = {\ttfamily \mbox{\hyperlink{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6ea521c36a31c2762741cf0f8890cbe05e3}{QTRRead\+Mode\+::\+On}}} }\end{DoxyParamCaption})}
+
+
+
+Reads the raw sensor values into an array. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ out}}  & {\em sensor\+Values} & A pointer to an array in which to store the raw sensor readings. There {\bfseries{MUST}} be space in the array for as many values as there were sensors specified in \doxylink{classQTRSensors_affa15ba6cbde69fd375f41e5fc63b156}{set\+Sensor\+Pins()}.\\
+\hline
+ & {\em mode} & The emitter behavior during the read, as a member of the \doxylink{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6e}{QTRRead\+Mode} enum. The default is \doxylink{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6ea521c36a31c2762741cf0f8890cbe05e3}{QTRRead\+Mode\+::\+On}.\\
+\hline
+\end{DoxyParams}
+Example usage\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{uint16\_t\ sensorValues[8];}
+\DoxyCodeLine{qtr.read(sensorValues);}
+
+\end{DoxyCode}
+
+
+The values returned are a measure of the reflectance in abstract units, with higher values corresponding to lower reflectance (e.\+g. a black surface or a void).
+
+Analog sensors will return a raw value between 0 and 1023 (like Arduino\textquotesingle{}s {\ttfamily analog\+Read()} function).
+
+RC sensors will return a raw value in microseconds between 0 and the timeout setting configured with \doxylink{classQTRSensors_ab145ce7a7269f51b45863dafb9d61afd}{set\+Timeout()} (the default timeout is 2500 {$\mu$}s).
+
+See md\+\_\+usage for more information and example code. \Hypertarget{classQTRSensors_aa2f5d7779744e5d93f6935d2cdf589eb}\label{classQTRSensors_aa2f5d7779744e5d93f6935d2cdf589eb} 
+\index{QTRSensors@{QTRSensors}!readCalibrated@{readCalibrated}}
+\index{readCalibrated@{readCalibrated}!QTRSensors@{QTRSensors}}
+\doxysubsubsection{\texorpdfstring{readCalibrated()}{readCalibrated()}}
+{\footnotesize\ttfamily void QTRSensors\+::read\+Calibrated (\begin{DoxyParamCaption}\item[{uint16\+\_\+t \texorpdfstring{$\ast$}{*}}]{sensor\+Values,  }\item[{\mbox{\hyperlink{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6e}{QTRRead\+Mode}}}]{mode = {\ttfamily \mbox{\hyperlink{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6ea521c36a31c2762741cf0f8890cbe05e3}{QTRRead\+Mode\+::\+On}}} }\end{DoxyParamCaption})}
+
+
+
+Reads the sensors and provides calibrated values between 0 and 1000. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ out}}  & {\em sensor\+Values} & A pointer to an array in which to store the calibrated sensor readings. There {\bfseries{MUST}} be space in the array for as many values as there were sensors specified in \doxylink{classQTRSensors_affa15ba6cbde69fd375f41e5fc63b156}{set\+Sensor\+Pins()}.\\
+\hline
+ & {\em mode} & The emitter behavior during the read, as a member of the \doxylink{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6e}{QTRRead\+Mode} enum. The default is \doxylink{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6ea521c36a31c2762741cf0f8890cbe05e3}{QTRRead\+Mode\+::\+On}. Manual emitter control with \doxylink{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6eae1ba155a9f2e8c3be94020eef32a0301}{QTRRead\+Mode\+::\+Manual} is not supported.\\
+\hline
+\end{DoxyParams}
+0 corresponds to the minimum value stored in \doxylink{classQTRSensors_adba8c75f5bc2cf57732ee2b96507f339}{calibration\+On} or \doxylink{classQTRSensors_a868276364c39750f9914abd50ec68c9d}{calibration\+Off}, depending on {\ttfamily mode}, and 1000 corresponds to the maximum value. Calibration values are typically obtained by calling \doxylink{classQTRSensors_a0021d844b691e1cf9e0fac2530b89c7e}{calibrate()}, and they are stored separately for each sensor, so that differences in the sensors are accounted for automatically.
+
+See md\+\_\+usage for more information and example code. \Hypertarget{classQTRSensors_a8f2a5239ae547928284c5f81cd7ec89c}\label{classQTRSensors_a8f2a5239ae547928284c5f81cd7ec89c} 
+\index{QTRSensors@{QTRSensors}!readLineBlack@{readLineBlack}}
+\index{readLineBlack@{readLineBlack}!QTRSensors@{QTRSensors}}
+\doxysubsubsection{\texorpdfstring{readLineBlack()}{readLineBlack()}}
+{\footnotesize\ttfamily uint16\+\_\+t QTRSensors\+::read\+Line\+Black (\begin{DoxyParamCaption}\item[{uint16\+\_\+t \texorpdfstring{$\ast$}{*}}]{sensor\+Values,  }\item[{\mbox{\hyperlink{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6e}{QTRRead\+Mode}}}]{mode = {\ttfamily \mbox{\hyperlink{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6ea521c36a31c2762741cf0f8890cbe05e3}{QTRRead\+Mode\+::\+On}}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Reads the sensors, provides calibrated values, and returns an estimated black line position. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ out}}  & {\em sensor\+Values} & A pointer to an array in which to store the calibrated sensor readings. There {\bfseries{MUST}} be space in the array for as many values as there were sensors specified in \doxylink{classQTRSensors_affa15ba6cbde69fd375f41e5fc63b156}{set\+Sensor\+Pins()}.\\
+\hline
+ & {\em mode} & The emitter behavior during the read, as a member of the \doxylink{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6e}{QTRRead\+Mode} enum. The default is \doxylink{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6ea521c36a31c2762741cf0f8890cbe05e3}{QTRRead\+Mode\+::\+On}. Manual emitter control with \doxylink{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6eae1ba155a9f2e8c3be94020eef32a0301}{QTRRead\+Mode\+::\+Manual} is not supported.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+An estimate of the position of a black line under the sensors.
+\end{DoxyReturn}
+The estimate is made using a weighted average of the sensor indices multiplied by 1000, so that a return value of 0 indicates that the line is directly below sensor 0, a return value of 1000 indicates that the line is directly below sensor 1, 2000 indicates that it\textquotesingle{}s below sensor 2000, etc. Intermediate values indicate that the line is between two sensors. The formula is (where $v_0$ represents the value from the first sensor)\+:
+
+\[
+{(0 \times v_0) + (1000 \times v_1) + (2000 \times v_2) + \cdots
+\over
+v_0 + v_1 + v_2 + \cdots}
+\]
+
+As long as your sensors aren’t spaced too far apart relative to the line, this returned value is designed to be monotonic, which makes it great for use in closed-\/loop PID control. Additionally, this method remembers where it last saw the line, so if you ever lose the line to the left or the right, its line position will continue to indicate the direction you need to go to reacquire the line. For example, if sensor 4 is your rightmost sensor and you end up completely off the line to the left, this function will continue to return 4000.
+
+This function is intended to detect a black (or dark-\/colored) line on a white (or light-\/colored) background. For a white line, see \doxylink{classQTRSensors_a231f1ef20c2a7ba325bdb794fc2dedf9}{read\+Line\+White()}.
+
+See md\+\_\+usage for more information and example code. \Hypertarget{classQTRSensors_a231f1ef20c2a7ba325bdb794fc2dedf9}\label{classQTRSensors_a231f1ef20c2a7ba325bdb794fc2dedf9} 
+\index{QTRSensors@{QTRSensors}!readLineWhite@{readLineWhite}}
+\index{readLineWhite@{readLineWhite}!QTRSensors@{QTRSensors}}
+\doxysubsubsection{\texorpdfstring{readLineWhite()}{readLineWhite()}}
+{\footnotesize\ttfamily uint16\+\_\+t QTRSensors\+::read\+Line\+White (\begin{DoxyParamCaption}\item[{uint16\+\_\+t \texorpdfstring{$\ast$}{*}}]{sensor\+Values,  }\item[{\mbox{\hyperlink{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6e}{QTRRead\+Mode}}}]{mode = {\ttfamily \mbox{\hyperlink{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6ea521c36a31c2762741cf0f8890cbe05e3}{QTRRead\+Mode\+::\+On}}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Reads the sensors, provides calibrated values, and returns an estimated white line position. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ out}}  & {\em sensor\+Values} & A pointer to an array in which to store the calibrated sensor readings. There {\bfseries{MUST}} be space in the array for as many values as there were sensors specified in \doxylink{classQTRSensors_affa15ba6cbde69fd375f41e5fc63b156}{set\+Sensor\+Pins()}.\\
+\hline
+ & {\em mode} & The emitter behavior during the read, as a member of the \doxylink{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6e}{QTRRead\+Mode} enum. The default is \doxylink{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6ea521c36a31c2762741cf0f8890cbe05e3}{QTRRead\+Mode\+::\+On}. Manual emitter control with \doxylink{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6eae1ba155a9f2e8c3be94020eef32a0301}{QTRRead\+Mode\+::\+Manual} is not supported.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+An estimate of the position of a white line under the sensors.
+\end{DoxyReturn}
+This function is intended to detect a white (or light-\/colored) line on a black (or dark-\/colored) background. For a black line, see \doxylink{classQTRSensors_a8f2a5239ae547928284c5f81cd7ec89c}{read\+Line\+Black()}.
+
+See md\+\_\+usage for more information and example code. \Hypertarget{classQTRSensors_af4fea64349f7d85830b41ded4aa63ce8}\label{classQTRSensors_af4fea64349f7d85830b41ded4aa63ce8} 
+\index{QTRSensors@{QTRSensors}!releaseEmitterPins@{releaseEmitterPins}}
+\index{releaseEmitterPins@{releaseEmitterPins}!QTRSensors@{QTRSensors}}
+\doxysubsubsection{\texorpdfstring{releaseEmitterPins()}{releaseEmitterPins()}}
+{\footnotesize\ttfamily void QTRSensors\+::release\+Emitter\+Pins (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Releases emitter pin/pins that have been set. 
+
+This function releases any emitter pins that were previously specified, making them inputs and stopping further control of the emitters through them.
+
+See also \doxylink{classQTRSensors_a50ddff66a733e268eece669f6e48486a}{set\+Emitter\+Pin()} and \doxylink{classQTRSensors_a6f49e24d8eaa2a59ef313c24ab722a86}{set\+Emitter\+Pins()}. \Hypertarget{classQTRSensors_a781887fb85ebb9c97df4c9e97a7be6b1}\label{classQTRSensors_a781887fb85ebb9c97df4c9e97a7be6b1} 
+\index{QTRSensors@{QTRSensors}!setDimmable@{setDimmable}}
+\index{setDimmable@{setDimmable}!QTRSensors@{QTRSensors}}
+\doxysubsubsection{\texorpdfstring{setDimmable()}{setDimmable()}}
+{\footnotesize\ttfamily void QTRSensors\+::set\+Dimmable (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Specifies that the sensors are dimmable. 
+
+Calling this function is optional when setting up second-\/generation QTR or QTRX sensors. By default, the library assumes the sensors are dimmable.
+
+For first-\/generation QTR sensors, see \doxylink{classQTRSensors_a80964b2b065c02c5a7153bd600aedf6d}{set\+Non\+Dimmable()}. \Hypertarget{classQTRSensors_a33c0a5c97bb7a3546a6b30ae4baa209a}\label{classQTRSensors_a33c0a5c97bb7a3546a6b30ae4baa209a} 
+\index{QTRSensors@{QTRSensors}!setDimmingLevel@{setDimmingLevel}}
+\index{setDimmingLevel@{setDimmingLevel}!QTRSensors@{QTRSensors}}
+\doxysubsubsection{\texorpdfstring{setDimmingLevel()}{setDimmingLevel()}}
+{\footnotesize\ttfamily void QTRSensors\+::set\+Dimming\+Level (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{dimming\+Level }\end{DoxyParamCaption})}
+
+
+
+Sets the dimming level. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dimming\+Level} & The dimming level (0 to 31). A dimming level of 0 corresponds to full current and brightness, with higher dimming levels meaning lower currents.\\
+\hline
+\end{DoxyParams}
+See your sensor board\textquotesingle{}s product page or documentation for details on the relationship of the dimming level to the LED current.
+
+The dimming level will take effect the next time \doxylink{classQTRSensors_a85a0b3afec856d92393bf6f7c05a1f90}{emitters\+On()} is called (either from your own program or by one of the library\textquotesingle{}s read methods), and it will be applied again whenever the emitters are turned on after that.
+
+This setting is only used by dimmable sensors, and an emitter control pin/pins must be connected and defined for dimming to be applied. \Hypertarget{classQTRSensors_a50ddff66a733e268eece669f6e48486a}\label{classQTRSensors_a50ddff66a733e268eece669f6e48486a} 
+\index{QTRSensors@{QTRSensors}!setEmitterPin@{setEmitterPin}}
+\index{setEmitterPin@{setEmitterPin}!QTRSensors@{QTRSensors}}
+\doxysubsubsection{\texorpdfstring{setEmitterPin()}{setEmitterPin()}}
+{\footnotesize\ttfamily void QTRSensors\+::set\+Emitter\+Pin (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{emitter\+Pin }\end{DoxyParamCaption})}
+
+
+
+Sets the emitter control pin for the sensors. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em emitter\+Pin} & The Arduino digital pin that controls whether the IR LEDs are on or off.\\
+\hline
+\end{DoxyParams}
+Specifying an emitter pin is optional, and the pin is not present on some QTR sensor boards. If a valid pin is connected and specified, the emitters will only be turned on during a reading; otherwise, the IR emitters will always be on. No emitter pin is specified by default.
+
+With second-\/generation QTR or QTRX sensor arrays that have two emitter control pins, you can control all of the emitters together by specifying a single emitter pin connected to either the CTRL ODD or CTRL EVEN pin on the sensor board. For independent control of the odd-\/ and even-\/numbered emitters, see \doxylink{classQTRSensors_a6f49e24d8eaa2a59ef313c24ab722a86}{set\+Emitter\+Pins()}.
+
+If you call this function after an emitter pin/pins have already been specified, any existing emitter pins will be released; see also \doxylink{classQTRSensors_af4fea64349f7d85830b41ded4aa63ce8}{release\+Emitter\+Pins()}. \Hypertarget{classQTRSensors_a6f49e24d8eaa2a59ef313c24ab722a86}\label{classQTRSensors_a6f49e24d8eaa2a59ef313c24ab722a86} 
+\index{QTRSensors@{QTRSensors}!setEmitterPins@{setEmitterPins}}
+\index{setEmitterPins@{setEmitterPins}!QTRSensors@{QTRSensors}}
+\doxysubsubsection{\texorpdfstring{setEmitterPins()}{setEmitterPins()}}
+{\footnotesize\ttfamily void QTRSensors\+::set\+Emitter\+Pins (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{odd\+Emitter\+Pin,  }\item[{uint8\+\_\+t}]{even\+Emitter\+Pin }\end{DoxyParamCaption})}
+
+
+
+Sets separate odd and even emitter control pins for the sensors. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em odd\+Emitter\+Pin} & The Arduino digital pin that controls the odd-\/numbered IR LEDs.\\
+\hline
+{\em even\+Emitter\+Pin} & The Arduino digital pin that controls the even-\/numbered IR LEDs.\\
+\hline
+\end{DoxyParams}
+This function only works with second-\/generation QTR or QTRX sensor arrays that have two emitter control pins. To specify a single emitter pin for all sensors, see \doxylink{classQTRSensors_a50ddff66a733e268eece669f6e48486a}{set\+Emitter\+Pin()}.
+
+If you call this function after an emitter pin/pins have already been specified, any existing emitter pins will be released; see also \doxylink{classQTRSensors_af4fea64349f7d85830b41ded4aa63ce8}{release\+Emitter\+Pins()}. \Hypertarget{classQTRSensors_a80964b2b065c02c5a7153bd600aedf6d}\label{classQTRSensors_a80964b2b065c02c5a7153bd600aedf6d} 
+\index{QTRSensors@{QTRSensors}!setNonDimmable@{setNonDimmable}}
+\index{setNonDimmable@{setNonDimmable}!QTRSensors@{QTRSensors}}
+\doxysubsubsection{\texorpdfstring{setNonDimmable()}{setNonDimmable()}}
+{\footnotesize\ttfamily void QTRSensors\+::set\+Non\+Dimmable (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Specifies that the sensors are non-\/dimmable. 
+
+Call this function to set up first-\/generation QTR sensors and allow them to be read slightly faster (since their emitters can be turned on and off slightly more quickly than those on dimmable sensors).
+
+See also \doxylink{classQTRSensors_a781887fb85ebb9c97df4c9e97a7be6b1}{set\+Dimmable()}. \Hypertarget{classQTRSensors_a6f72b422c1cd71ab5c0df661f27a0d8b}\label{classQTRSensors_a6f72b422c1cd71ab5c0df661f27a0d8b} 
+\index{QTRSensors@{QTRSensors}!setSamplesPerSensor@{setSamplesPerSensor}}
+\index{setSamplesPerSensor@{setSamplesPerSensor}!QTRSensors@{QTRSensors}}
+\doxysubsubsection{\texorpdfstring{setSamplesPerSensor()}{setSamplesPerSensor()}}
+{\footnotesize\ttfamily void QTRSensors\+::set\+Samples\+Per\+Sensor (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{samples }\end{DoxyParamCaption})}
+
+
+
+Sets the number of analog readings to average per analog sensor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em samples} & The number of 10-\/bit analog samples (analog-\/to-\/digital conversions) to average per sensor each time it is read.\\
+\hline
+\end{DoxyParams}
+Increasing {\ttfamily samples} increases noise suppression at the cost of sample rate. The maximum number of samples per sensor is 64; the default is 4.
+
+The samples per sensor setting only applies to analog sensors. \Hypertarget{classQTRSensors_affa15ba6cbde69fd375f41e5fc63b156}\label{classQTRSensors_affa15ba6cbde69fd375f41e5fc63b156} 
+\index{QTRSensors@{QTRSensors}!setSensorPins@{setSensorPins}}
+\index{setSensorPins@{setSensorPins}!QTRSensors@{QTRSensors}}
+\doxysubsubsection{\texorpdfstring{setSensorPins()}{setSensorPins()}}
+{\footnotesize\ttfamily void QTRSensors\+::set\+Sensor\+Pins (\begin{DoxyParamCaption}\item[{const uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{pins,  }\item[{uint8\+\_\+t}]{sensor\+Count }\end{DoxyParamCaption})}
+
+
+
+Sets the sensor pins. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em pins} & A pointer to an array containing the Arduino pins that the sensors are connected to.\\
+\hline
+ & {\em sensor\+Count} & The number of sensors, which should match the length of the pins array.\\
+\hline
+\end{DoxyParams}
+Example usage\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{//\ Set\ pins\ for\ four\ RC\ sensors\ connected\ to\ pins\ 6,\ 7,\ A0,\ and\ A1.}}
+\DoxyCodeLine{\textcolor{comment}{//\ (Most\ analog\ pins\ can\ also\ be\ used\ as\ digital\ pins.)}}
+\DoxyCodeLine{qtr.setTypeRC();}
+\DoxyCodeLine{qtr.setSensorPins((\textcolor{keyword}{const}\ uint8\_t[])\{6,\ 7,\ A0,\ A1\},\ 4);}
+
+\end{DoxyCode}
+ 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{//\ Set\ pins\ for\ four\ analog\ sensors\ connected\ to\ pins\ A2,\ A3,\ A4,\ and\ A5.}}
+\DoxyCodeLine{qtr.setTypeAnalog();}
+\DoxyCodeLine{qtr.setSensorPins((\textcolor{keyword}{const}\ uint8\_t[])\{A2,\ A3,\ A4,\ A5\},\ 4);}
+
+\end{DoxyCode}
+
+
+If \doxylink{structQTRSensors_1_1CalibrationData}{calibration data } has already been stored, calling this method will force the storage for the calibration values to be reallocated and reinitialized the next time \doxylink{classQTRSensors_a0021d844b691e1cf9e0fac2530b89c7e}{calibrate()} is called (it sets {\ttfamily calibration\+On.\+initialized} and {\ttfamily calibration\+Off.\+initialized} to false). \Hypertarget{classQTRSensors_ab145ce7a7269f51b45863dafb9d61afd}\label{classQTRSensors_ab145ce7a7269f51b45863dafb9d61afd} 
+\index{QTRSensors@{QTRSensors}!setTimeout@{setTimeout}}
+\index{setTimeout@{setTimeout}!QTRSensors@{QTRSensors}}
+\doxysubsubsection{\texorpdfstring{setTimeout()}{setTimeout()}}
+{\footnotesize\ttfamily void QTRSensors\+::set\+Timeout (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{timeout }\end{DoxyParamCaption})}
+
+
+
+Sets the timeout for RC sensors. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em timeout} & The length of time, in microseconds, beyond which you consider the sensor reading completely black.\\
+\hline
+\end{DoxyParams}
+If the pulse length for a pin exceeds {\ttfamily timeout}, pulse timing will stop and the reading for that pin will be considered full black. It is recommended that you set {\ttfamily timeout} to be between 1000 and 3000 {$\mu$}s, depending on factors like the height of your sensors and ambient lighting. This allows you to shorten the duration of a sensor-\/reading cycle while maintaining useful measurements of reflectance. The default timeout is 2500 {$\mu$}s.
+
+The maximum allowed timeout is 32767. (This prevents any possibility of an overflow when using \doxylink{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6eab861cf336f4ec44ae8edbd8d3473b9d5}{QTRRead\+Mode\+::\+On\+And\+Off} or \doxylink{QTRSensors_8h_a3de40c1ece9200d5dcd314dcfe655a6ea64a8e40b79cf77c7a7b40064641a6806}{QTRRead\+Mode\+::\+Odd\+Even\+And\+Off}).
+
+The timeout setting only applies to RC sensors. \Hypertarget{classQTRSensors_a869bfa11368f248f64d981aa583a6afe}\label{classQTRSensors_a869bfa11368f248f64d981aa583a6afe} 
+\index{QTRSensors@{QTRSensors}!setTypeAnalog@{setTypeAnalog}}
+\index{setTypeAnalog@{setTypeAnalog}!QTRSensors@{QTRSensors}}
+\doxysubsubsection{\texorpdfstring{setTypeAnalog()}{setTypeAnalog()}}
+{\footnotesize\ttfamily void QTRSensors\+::set\+Type\+Analog (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Specifies that the sensor type is analog. 
+
+Call this function to set up A-\/type sensors. \Hypertarget{classQTRSensors_a411f4a800c4e297a6b0ada8efece043d}\label{classQTRSensors_a411f4a800c4e297a6b0ada8efece043d} 
+\index{QTRSensors@{QTRSensors}!setTypeRC@{setTypeRC}}
+\index{setTypeRC@{setTypeRC}!QTRSensors@{QTRSensors}}
+\doxysubsubsection{\texorpdfstring{setTypeRC()}{setTypeRC()}}
+{\footnotesize\ttfamily void QTRSensors\+::set\+Type\+RC (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Specifies that the sensors are RC. 
+
+Call this function to set up RC-\/type sensors. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{QTRSensors_8h}{QTRSensors.\+h}}\item 
+QTRSensors.\+cpp\end{DoxyCompactItemize}
