@@ -1,0 +1,36 @@
+# Project-related configuration
+PROJECT_NAME           = "NoPucksGiven Robot"
+PROJECT_BRIEF          = "Arduino-based robot control using MC33926 motor driver"
+OUTPUT_DIRECTORY       = docs
+INPUT                  = sketch_may08a.ino
+FILE_PATTERNS          = *.ino
+RECURSIVE              = NO
+
+# Build-related configuration
+EXTRACT_ALL            = YES
+EXTRACT_PRIVATE        = YES
+EXTRACT_STATIC         = YES
+EXTRACT_LOCAL_CLASSES  = YES
+
+# Source code parsing
+OPTIMIZE_OUTPUT_FOR_C  = YES
+MARKDOWN_SUPPORT       = YES
+EXTENSION_MAPPING      = ino=C++
+
+# Output formats
+GENERATE_HTML          = YES
+HTML_OUTPUT            = html
+GENERATE_LATEX         = NO
+
+# Dot tool for diagrams
+HAVE_DOT               = NO
+DOT_PATH               =
+CLASS_DIAGRAMS         = YES
+CALL_GRAPH             = NO
+CALLER_GRAPH           = NO
+DOT_IMAGE_FORMAT       = svg
+
+# Other settings
+QUIET                  = NO
+WARN_IF_UNDOCUMENTED   = YES
+
