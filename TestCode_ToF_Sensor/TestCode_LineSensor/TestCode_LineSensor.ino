@@ -1,40 +1,37 @@
-#include "Adafruit_VL53L0X.h"
-#include <Wire.h>  // Include the Wire library for custom I2C pins
+/* This example shows how to use continuous mode to take
+range measurements with the VL53L0X. It is based on
+vl53l0x_ContinuousRanging_Example.c from the VL53L0X API.
 
-Adafruit_VL53L0X lox = Adafruit_VL53L0X();
+The range readings are in units of mm. */
 
-void setup() {
-  Serial.begin(115200);
+#include <Wire.h>
+#include <VL53L0X.h>
 
-  // wait until serial port opens for native USB devices
-  while (!Serial) {
-    delay(1);
+VL53L0X sensor;
+
+void setup()
+{
+  Serial.begin(9600);
+  Wire.begin();
+
+  sensor.setTimeout(500);
+  if (!sensor.init())
+  {
+    Serial.println("Failed to detect and initialize sensor!");
+    while (1) {}
   }
- 
-  Wire.begin(); //<-- optional petrameters to change address    // Begin I2C communication on Wire1 with the custom SDA/SCL pins
 
-  if (!lox.begin(VL53L0X_I2C_ADDR, 0, &Wire)) {
-    Serial.println(F("Failed to boot VL53L0X"));
-    while(1);
-  }
-  
-  lox.setAddress(0x29);
-  // power 
-  Serial.println(F("VL53L0X API Simple Ranging example\n\n")); 
+  // Start continuous back-to-back mode (take readings as
+  // fast as possible).  To use continuous timed mode
+  // instead, provide a desired inter-measurement period in
+  // ms (e.g. sensor.startContinuous(100)).
+  sensor.startContinuous();
 }
 
-void loop() {
-  VL53L0X_RangingMeasurementData_t measure;
+void loop()
+{
+  Serial.print(sensor.readRangeContinuousMillimeters());
+  if (sensor.timeoutOccurred()) { Serial.print(" TIMEOUT"); }
 
-  Serial.print("Reading a measurement... ");
-  lox.rangingTest(&measure, false); // pass in 'true' to get debug data printout!
-
-  if (measure.RangeStatus != 4) {  // phase failures have incorrect data
-    Serial.print("Distance (mm): ");
-    Serial.println(measure.RangeMilliMeter);
-  } else {
-    Serial.println(" out of range ");
-  }
-
-  delay(1000);
+  Serial.println();
 }

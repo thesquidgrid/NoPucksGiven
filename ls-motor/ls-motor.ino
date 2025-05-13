@@ -7,36 +7,61 @@
 #define PWMA 4
 #define STBY 9
 
-// Motor direction offset
 const int offsetA = 1;
+Motor motor1 = Motor(AIN2, AIN1, PWMA, offsetA, STBY);
+Encoder myEnc(5, 6);  // Encoder connected to output shaft
 
-Motor motor1 = Motor(AIN1, AIN2, PWMA, offsetA, STBY);
-Encoder myEnc(5, 6);  // Attach encoder to pins 5 and 6
+// Movement settings
+const long targetDisplacement = 123;
+const long slowDownThreshold = 30;
 
-// Target encoder displacement for 90-degree rotation
-const long targetDisplacement = 123;  
-long oldPosition = -999;
+long lastPosition = 0;
+bool isSlowingDown = false;
+bool hasReachedTarget = false;
+
 
 void setup() {
   Serial.begin(9600);
-  myEnc.write(0); // Reset encoder position to 0 at startup
+  myEnc.write(0);
+  delay(100);
+  motor1.drive(50); // Start movement
 }
 
 void loop() {
-  motor1.drive(50); // Drive motor forward at speed 50 (no timeout)
+  delay(10);
 
-  long newPosition = myEnc.read();
-  
-  if (newPosition != oldPosition) {
-    oldPosition = newPosition;
-    Serial.println(newPosition); 
+  long position = abs(myEnc.read());
+
+  // Ignore jitter
+  if (abs(position - lastPosition) >= 1) {
+    lastPosition = position;
+    Serial.println(position);
   }
 
-  if (abs(newPosition) >= targetDisplacement) {
-    motor1.brake(); // Stop motor
-    Serial.println("Reached 90 degrees!");
-    myEnc.write(0); // Reset encoder position to 0 at startup
-    delay(1000);
-    newPosition = 0;
+  // Transition logic
+  if (!hasReachedTarget) {
+    if (position >= targetDisplacement) {
+      // Stop condition
+      motor1.brake();
+      Serial.println("Reached target!");
+     
+      hasReachedTarget = true;
+
+      myEnc.write(0); // Reset encoder
+      delay(2000);   
+      motor1.drive(50); 
+     
+      hasReachedTarget = false;
+      isSlowingDown = false;
+      lastPosition = 0;
+      Serial.println("Restarting...");
+    } 
+    else if (!isSlowingDown && position >= targetDisplacement - slowDownThreshold) {
+      // Begin slowing down
+      motor1.drive(50);
+     
+      isSlowingDown = true;
+      Serial.println("Slowing down...");
+    }
   }
 }

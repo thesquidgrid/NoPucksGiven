@@ -9,13 +9,13 @@
 #include <Arduino.h>
 #include "MC33926MotorShield.h"
 #include "QTRSensors.h"
-#include "Adafruit_VL53L0X.h"
+#include <VL53L0X.h>
 #include <Wire.h>  // Include the Wire library for custom I2C pins
 #include "SparkFun_TB6612.h"
 #include "Encoder.h"
 
 //TOF STUFF
-Adafruit_VL53L0X lox = Adafruit_VL53L0X();
+VL53L0X sensor;
 /** @brief Pin for controlling the XSHUT pin (D17).*/
 const int XSHUT_PIN = 17; 
 /** @brief target displacement for sensing the goal.*/
@@ -82,7 +82,7 @@ Encoder rightM(30, 29);
 #define PWMA_lsm 4
 #define STBY_lsm 9
 
-// Motor direction offset
+// Motor direction offsset
 const int offsetA = 1;
 
 //LAZY SUSAN MOTOR
@@ -119,13 +119,16 @@ void setup() {
   digitalWrite(XSHUT_PIN, HIGH);  // Bring the sensor out of reset
   delay(100);
   
-  //force the TOF to boot
-  while (!lox.begin(VL53L0X_I2C_ADDR, 0, &Wire)) {
-    Serial.println(F("Failed to boot VL53L0X"));
-    lox.begin(VL53L0X_I2C_ADDR, 0, &Wire);
+
+  sensor.setTimeout(500);
+  while (!sensor.init())
+  {
+    Serial.println("Failed to detect and initialize sensor!");
+    sensor.init();
   }
+
+  sensor.startContinuous();
   
-  lox.startRangeContinuous(); //tof start recording values.
   Serial.println("Setup complete.");
   //reset all encoders
   rightM.write(0);
