@@ -310,11 +310,13 @@ void QTRSensors::calibrate(QTRReadMode mode)
       mode == QTRReadMode::OnAndOff)
   {
     calibrateOnOrOff(calibrationOn, QTRReadMode::On);
+    
   }
   else if (mode == QTRReadMode::OddEven ||
            mode == QTRReadMode::OddEvenAndOff)
   {
     calibrateOnOrOff(calibrationOn, QTRReadMode::OddEven);
+    Serial.println("2");
   }
 
   if (mode == QTRReadMode::OnAndOff ||
@@ -322,6 +324,7 @@ void QTRSensors::calibrate(QTRReadMode mode)
       mode == QTRReadMode::Off)
   {
     calibrateOnOrOff(calibrationOff, QTRReadMode::Off);
+    Serial.println("3");
   }
 }
 

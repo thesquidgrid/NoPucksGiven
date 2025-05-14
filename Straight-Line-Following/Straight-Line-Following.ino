@@ -80,11 +80,6 @@ void setup() {
   qtr.setSensorPins((const uint8_t[]){16, 15, 14, 41, 40, 39, 38}, SENSOR_NUMS);
   qtr.setTypeAnalog();  // Important!
 
-  // Calibrate sensors here later
-  // for (int i = 0; i < 250; i++) {
-  //   qtr.calibrate();
-  //   delay(20);
-  // }
   for (int i = 0; i < 1000; i++) {
     qtr.calibrate();
     delay(5);

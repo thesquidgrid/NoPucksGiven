@@ -16,12 +16,11 @@ void setup() {
 }
 
 void loop() {
-  // Slowly ramp up PWM from 0 to 800 (adjust as needed)
   analogWrite(PWMA, 1000);
   delay(300);
   analogWrite(PWMA, 0);
 
-  delay(3000);  // Run at full speed for 2 seconds
+  delay(10000);  
 
 }
 
