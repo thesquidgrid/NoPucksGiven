@@ -79,6 +79,8 @@ Encoder rightM(30, 29);
 #define IN2_sm 20
 #define PWMA_sm 37
 
+
+
 //LAZY SUSAN motor control:
 #define AIN1_lsm 2
 #define AIN2_lsm 3
@@ -146,14 +148,14 @@ void setup() {
    leftM.write(0);
    lsMotor.write(0);
 
-   //go forward until you sense all black and also quadrature encoder ((value 1000)
-   //go forward a little bit more ((2 rotations, 984))
-   //turn left until you sense black.
-   //start linefollowing until robot senses with TOF sensor that the goal is there.
-   //turn motor 90 degrees 2 times.
-   //slowly turn motor 30 degrees so it can feed it into the shooter motor
-   //run shooter motor after that runs.
-   //continue line following
+   //shooter motor setup:
+   pinMode(IN1_sm, OUTPUT);
+   pinMode(IN2_sm, OUTPUT);
+   pinMode(PWMA_sm, OUTPUT);
+   digitalWrite(IN1_sm, HIGH);
+   digitalWrite(IN2_sm, LOW);
+
+  
 
 }
 /**
@@ -161,13 +163,32 @@ void setup() {
  */
 void loop() {
    // put your main code here, to run repeatedly:
-
+   
    driveUntilBlackThenTurn();
    goRightUntilFindBlackLine();
+   lineFollowUntilGoal();
+   shootPuck();
    
+   while (1);
+}
+/**
+ * @brief turn on puck shooter motor then turn off.
+ * @return void. 
+ */
+void shootPuck(){
+  analogWrite(PWMA_sm, 1000);
+  delay(300);
+  analogWrite(PWMA_sm, 0);
+  delay(3000);  // Run at full speed for 2 seconds
+}
+
+/**
+ * @brief invoke line following function until the tof sensor senses the goal.
+ * @return void. 
+ */
+void lineFollowUntilGoal(){
    bool flag = false;
    uint16_t range = sensor.readRangeContinuousMillimeters();
-
    bool flag160 = false;
    while (!flag) {
       range = sensor.readRangeContinuousMillimeters();
@@ -177,15 +198,15 @@ void loop() {
       if (range > 145) {
         flag160 = true;
       }
-      if ((range > 95) && (range < 120) && (flag160 == true)) {
+      if ((range > 95) && (range < 130) && (flag160 == true)) {
          leftMotor.setSpeed(0);
          rightMotor.setSpeed(0);
          flag = true;
       }
    }
    Serial.println("found goal");
-   while (1);
 }
+
 /**
  * @brief readPosition of qtr.
  * @return int what the qtr sensor senses. 
