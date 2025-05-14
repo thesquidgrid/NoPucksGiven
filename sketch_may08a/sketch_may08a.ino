@@ -7,6 +7,8 @@
 
 //imports
 #include <Arduino.h>
+#include <TeensyThreads.h>
+
 
 #include "MC33926MotorShield.h"
 
@@ -123,12 +125,12 @@ void setup() {
 
   //for i2c
   Wire.begin();
-  // delay(1000);
-  // Serial.println("calibrate robot");
-  // for (int i = 0; i < 1000; i++) { //calibrate robot
-  //   qtr.calibrate();
-  //   delay(5);
-  // }
+  delay(1000);
+  Serial.println("calibrate robot");
+  for (int i = 0; i < 1000; i++) { //calibrate robot
+    qtr.calibrate();
+    delay(5);
+  }
   Serial.println("robot calibrate done");
   delay(5000);
 
@@ -157,6 +159,7 @@ void setup() {
   pinMode(PWMA_sm, OUTPUT);
   digitalWrite(IN1_sm, HIGH);
   digitalWrite(IN2_sm, LOW);
+  
 
 }
 /**
@@ -165,7 +168,7 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
   
-  while(1);
+
   driveUntilBlackThenTurn();
   goRightUntilFindBlackLine();
   lineFollowUntilGoal();
@@ -177,6 +180,12 @@ void loop() {
   lineFollowUntilGoal();
   //LOOK AT DIAGRAM FOR THING.
   
+  moveDegrees(-200);
+
+  threads.addThread([]() { moveDegrees(-50);});
+  delay(500);
+  threads.addThread([]() { shootPuck();});
+   threads.addThread([]() { moveDegrees(-50);});
   while (1);
 }
 /**
@@ -185,7 +194,7 @@ void loop() {
  */
 void shootPuck() {
   analogWrite(PWMA_sm, 1000);
-  delay(300);
+  delay(5000);
   analogWrite(PWMA_sm, 0);
   delay(3000); // Run at full speed for 2 seconds
 }
@@ -198,6 +207,7 @@ void lineFollowUntilGoal() {
   bool flag = false;
   uint16_t range = sensor.readRangeContinuousMillimeters();
   bool flag160 = false;
+  int counter = 0;
   while (!flag) {
     range = sensor.readRangeContinuousMillimeters();
     delay(5);
@@ -205,6 +215,9 @@ void lineFollowUntilGoal() {
     lineFollow();
     if (range > 145) {
       flag160 = true;
+      if (counter == 0){
+        threads.addThread([]() { moveDegrees(-100);}); //move puck 90 degrees
+      }
     }
     if ((range > 95) && (range < 130) && (flag160 == true)) {
       leftMotor.setSpeed(0);
@@ -364,7 +377,7 @@ void moveDegrees(int targetDisplacement) {
   lsMotor.write(0); // Reset encoder before starting
   delay(100);
 
-  ls_motor.drive(50 * direction); // Start moving in correct direction
+  ls_motor.drive(60 * direction); // Start moving in correct direction
 
   while (!hasReachedTarget) {
     delay(10);
