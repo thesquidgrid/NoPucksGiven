@@ -126,13 +126,13 @@ void setup() {
   //for i2c
   Wire.begin();
   delay(1000);
-  Serial.println("calibrate robot");
-  for (int i = 0; i < 1000; i++) { //calibrate robot
-    qtr.calibrate();
-    delay(5);
-  }
-  Serial.println("robot calibrate done");
-  delay(5000);
+  // Serial.println("calibrate robot");
+  // for (int i = 0; i < 1000; i++) { //calibrate robot
+  //   qtr.calibrate();
+  //   delay(5);
+  // }
+  // Serial.println("robot calibrate done");
+  // delay(5000);
 
   //FOR TOF - TURNS IT ON
   pinMode(XSHUT_PIN, OUTPUT);
@@ -168,7 +168,10 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
   
-
+  threads.addThread([]() { moveDegrees(-90);});
+  threads.addThread([]() { shootPuck();});
+  threads.addThread([]() { moveDegrees(-50);});
+  while(1);
   driveUntilBlackThenTurn();
   goRightUntilFindBlackLine();
   lineFollowUntilGoal();
@@ -195,8 +198,8 @@ void loop() {
 void shootPuck() {
   analogWrite(PWMA_sm, 1000);
   delay(5000);
-  analogWrite(PWMA_sm, 0);
-  delay(3000); // Run at full speed for 2 seconds
+  // analogWrite(PWMA_sm, 0);
+  // delay(3000); // Run at full speed for 2 seconds
 }
 
 /**
@@ -377,7 +380,7 @@ void moveDegrees(int targetDisplacement) {
   lsMotor.write(0); // Reset encoder before starting
   delay(100);
 
-  ls_motor.drive(60 * direction); // Start moving in correct direction
+  ls_motor.drive(40 * direction); // Start moving in correct direction
 
   while (!hasReachedTarget) {
     delay(10);
