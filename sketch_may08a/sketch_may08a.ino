@@ -1,8 +1,16 @@
-// notes, we are having issues with funneling the pucks ino the back of the robot, possible solutions include
-// adding the second TOF sensor and either detecting pucks entering the robot(best idea so far)
-// another one was possibly detecting the wall using the olde TOF sensor location in the front of the robot
-//(constraint is accurate and consistent back filtering aka 90 deg turns for opposite direction)
-// another way would be to use threading and rotate the suzan x ammount while it line follows and maybe get lucky and score the goals correct. 
+// what we need to get done:
+// - funneling stuff with black puck 
+// - creating proper routine for shooting pucks in the way our diagram shows
+// setting up pushbutton and properly integrating state machine
+// auto calibration for our local board - will use auto calibrate on the competition board
+// tof sensing 200 - 160 to know when to turn the lazy susan to funnel the puck in
+
+//what is done:
+//line following:
+//lazy susan turning
+//finding the black line and starting to linefollowing
+//tof goal finder works
+
 
 /**
  * @file sketch_may08a.ino
