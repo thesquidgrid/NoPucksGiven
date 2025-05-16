@@ -1,3 +1,9 @@
+// notes, we are having issues with funneling the pucks ino the back of the robot, possible solutions include
+// adding the second TOF sensor and either detecting pucks entering the robot(best idea so far)
+// another one was possibly detecting the wall using the olde TOF sensor location in the front of the robot
+//(constraint is accurate and consistent back filtering aka 90 deg turns for opposite direction)
+// another way would be to use threading and rotate the suzan x ammount while it line follows and maybe get lucky and score the goals correct. 
+
 /**
  * @file sketch_may08a.ino
  * @brief Controls the NoPucksGiven robot.
@@ -106,6 +112,8 @@ bool hasReachedTarget = false;
 
 void setup() {
 
+  pinMode(LED_BUILTIN, OUTPUT); // built in teensy light for state knowledge
+
   Serial.begin(115200);
   // Initialize Motors
   leftMotor.begin();
@@ -160,6 +168,11 @@ void setup() {
   digitalWrite(IN1_sm, HIGH);
   digitalWrite(IN2_sm, LOW);
   
+  for (int i = 0; i < 1000; i++) {
+    qtr.calibrate();
+    delay(5);
+  }
+  flashLED();
 
 }
 /**
@@ -167,14 +180,23 @@ void setup() {
  */
 void loop() {
   // put your main code here, to run repeatedly:
-  
-  threads.addThread([]() { moveDegrees(-90);});
+  delay(10000);
+  flashLED();
+  //threads.addThread([]() { moveDegrees(-90);});
   threads.addThread([]() { shootPuck();});
-  threads.addThread([]() { moveDegrees(-50);});
-  while(1);
+  threads.stop();
+  //threads.addThread([]() { moveDegrees(-50);});
+
+  moveDegreesAndShoot(-90); // enables the thread then disables it
+  delay(1500);
   driveUntilBlackThenTurn();
   goRightUntilFindBlackLine();
   lineFollowUntilGoal();
+  moveDegreesAndShoot(110);
+  flashLED();
+  delay(1000);
+  // just shot the second puck
+
   moveDegrees(-140);
   moveDegrees(-140);
   moveDegrees(-140);
@@ -201,6 +223,7 @@ void shootPuck() {
   // analogWrite(PWMA_sm, 0);
   // delay(3000); // Run at full speed for 2 seconds
 }
+
 
 /**
  * @brief invoke line following function until the tof sensor senses the goal.
@@ -412,3 +435,16 @@ void moveDegrees(int targetDisplacement) {
     }
   }
 }
+
+void moveDegreesAndShoot(int deg) {
+  threads.start();          // Pause all thread switching
+  moveDegrees(deg);            // Call your function that shouldn't be interrupted
+  threads.stop();           // Resume normal thread scheduling
+}
+
+void flashLED() {
+  digitalWrite(LED_BUILTIN, HIGH);
+  delay(500);
+  digitalWrite(LED_BUILTIN, LOW);
+}
+
