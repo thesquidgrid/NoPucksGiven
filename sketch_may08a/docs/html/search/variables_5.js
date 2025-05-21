@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['sensorvalues_0',['sensorValues',['../sketch__may08a_8ino.html#a076c5ad6c1185f64e1f813a8d62685e8',1,'sketch_may08a.ino']]]
+  ['qtr_0',['qtr',['../sketch__may08a_8ino.html#a9e05607474a03ba0b5bd2ee27c003524',1,'sketch_may08a.ino']]]
 ];

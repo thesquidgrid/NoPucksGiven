@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['targetdisplacement_0',['targetDisplacement',['../sketch__may08a_8ino.html#a4bf6976f990537a3752d4a3ca073da51',1,'sketch_may08a.ino']]]
+  ['sensor_0',['sensor',['../sketch__may08a_8ino.html#aeb02da790664840464a149de56be1e35',1,'sketch_may08a.ino']]],
+  ['sensorvalues_1',['sensorValues',['../sketch__may08a_8ino.html#a076c5ad6c1185f64e1f813a8d62685e8',1,'sketch_may08a.ino']]]
 ];

@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['targetdisplacement_0',['targetDisplacement',['../sketch__may08a_8ino.html#a4bf6976f990537a3752d4a3ca073da51',1,'sketch_may08a.ino']]],
-  ['todo_20list_1',['Todo List',['../todo.html',1,'']]]
+  ['qtr_0',['qtr',['../sketch__may08a_8ino.html#a9e05607474a03ba0b5bd2ee27c003524',1,'sketch_may08a.ino']]]
 ];

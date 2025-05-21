@@ -81,9 +81,10 @@ $(function() {
 <p>Controls the NoPucksGiven robot.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;Arduino.h&gt;</code><br />
+<code>#include &lt;TeensyThreads.h&gt;</code><br />
 <code>#include &quot;MC33926MotorShield.h&quot;</code><br />
 <code>#include &quot;QTRSensors.h&quot;</code><br />
-<code>#include &quot;Adafruit_VL53L0X.h&quot;</code><br />
+<code>#include &lt;VL53L0X.h&gt;</code><br />
 <code>#include &lt;Wire.h&gt;</code><br />
 <code>#include &quot;SparkFun_TB6612.h&quot;</code><br />
 <code>#include &quot;Encoder.h&quot;</code><br />
@@ -108,7 +109,7 @@ Macros</h2></td></tr>
 <tr class="separator:ad4f9673d16d231643789f081068d2372"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5f107c515bf76e1901169a4106d6ba38" id="r_a5f107c515bf76e1901169a4106d6ba38"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sketch__may08a_8ino.html#a5f107c515bf76e1901169a4106d6ba38">IGNORE_ERROR_THRESHOLD</a>&#160;&#160;&#160;3000</td></tr>
 <tr class="separator:a5f107c515bf76e1901169a4106d6ba38"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a98a85a6470432069bc7533b5abcf5106" id="r_a98a85a6470432069bc7533b5abcf5106"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sketch__may08a_8ino.html#a98a85a6470432069bc7533b5abcf5106">BLACK_THRESHOLD</a>&#160;&#160;&#160;800 /* adjust this for our starting sequence*/</td></tr>
+<tr class="memitem:a98a85a6470432069bc7533b5abcf5106" id="r_a98a85a6470432069bc7533b5abcf5106"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sketch__may08a_8ino.html#a98a85a6470432069bc7533b5abcf5106">BLACK_THRESHOLD</a>&#160;&#160;&#160;300 /* adjust this for our starting sequence*/</td></tr>
 <tr class="separator:a98a85a6470432069bc7533b5abcf5106"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac1c1a9fd299c4d06638ec6309de5fcf2" id="r_ac1c1a9fd299c4d06638ec6309de5fcf2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sketch__may08a_8ino.html#ac1c1a9fd299c4d06638ec6309de5fcf2">SENSOR_NUMS</a>&#160;&#160;&#160;7</td></tr>
 <tr class="separator:ac1c1a9fd299c4d06638ec6309de5fcf2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -154,6 +155,12 @@ Functions</h2></td></tr>
 <tr class="memitem:afe461d27b9c48d5921c00d521181f12f" id="r_afe461d27b9c48d5921c00d521181f12f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sketch__may08a_8ino.html#afe461d27b9c48d5921c00d521181f12f">loop</a> ()</td></tr>
 <tr class="memdesc:afe461d27b9c48d5921c00d521181f12f"><td class="mdescLeft">&#160;</td><td class="mdescRight">loop function.  <br /></td></tr>
 <tr class="separator:afe461d27b9c48d5921c00d521181f12f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07b6a6687947b7dbcfa8bb11a7d0e80c" id="r_a07b6a6687947b7dbcfa8bb11a7d0e80c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sketch__may08a_8ino.html#a07b6a6687947b7dbcfa8bb11a7d0e80c">shootPuck</a> ()</td></tr>
+<tr class="memdesc:a07b6a6687947b7dbcfa8bb11a7d0e80c"><td class="mdescLeft">&#160;</td><td class="mdescRight">turn on puck shooter motor then turn off.  <br /></td></tr>
+<tr class="separator:a07b6a6687947b7dbcfa8bb11a7d0e80c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ab76783b28d5e5b02c549d942a56afd" id="r_a2ab76783b28d5e5b02c549d942a56afd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sketch__may08a_8ino.html#a2ab76783b28d5e5b02c549d942a56afd">lineFollowUntilGoal</a> ()</td></tr>
+<tr class="memdesc:a2ab76783b28d5e5b02c549d942a56afd"><td class="mdescLeft">&#160;</td><td class="mdescRight">invoke line following function until the tof sensor senses the goal.  <br /></td></tr>
+<tr class="separator:a2ab76783b28d5e5b02c549d942a56afd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a79ee31cc1a105552deaeeea3d2df04f8" id="r_a79ee31cc1a105552deaeeea3d2df04f8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sketch__may08a_8ino.html#a79ee31cc1a105552deaeeea3d2df04f8">readPosition</a> ()</td></tr>
 <tr class="memdesc:a79ee31cc1a105552deaeeea3d2df04f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">readPosition of qtr.  <br /></td></tr>
 <tr class="separator:a79ee31cc1a105552deaeeea3d2df04f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -163,18 +170,36 @@ Functions</h2></td></tr>
 <tr class="memitem:a8cd8b3b31c1baaeb8680088f2210e188" id="r_a8cd8b3b31c1baaeb8680088f2210e188"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sketch__may08a_8ino.html#a8cd8b3b31c1baaeb8680088f2210e188">driveUntilBlackThenTurn</a> ()</td></tr>
 <tr class="memdesc:a8cd8b3b31c1baaeb8680088f2210e188"><td class="mdescLeft">&#160;</td><td class="mdescRight">have the robot go forward until it reaches the black line, then start linefollwing.  <br /></td></tr>
 <tr class="separator:a8cd8b3b31c1baaeb8680088f2210e188"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b5afe30df99675b8ff5e2dd9a5f4abb" id="r_a7b5afe30df99675b8ff5e2dd9a5f4abb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sketch__may08a_8ino.html#a7b5afe30df99675b8ff5e2dd9a5f4abb">testQTR</a> ()</td></tr>
+<tr class="memdesc:a7b5afe30df99675b8ff5e2dd9a5f4abb"><td class="mdescLeft">&#160;</td><td class="mdescRight">test the QTR and the values it's reading  <br /></td></tr>
+<tr class="separator:a7b5afe30df99675b8ff5e2dd9a5f4abb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abbae679121cbd8db03cd4450106f84eb" id="r_abbae679121cbd8db03cd4450106f84eb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sketch__may08a_8ino.html#abbae679121cbd8db03cd4450106f84eb">goRightUntilFindBlackLine</a> ()</td></tr>
+<tr class="memdesc:abbae679121cbd8db03cd4450106f84eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">have the robot go forward until it reaches the black line, then start linefollwing.  <br /></td></tr>
+<tr class="separator:abbae679121cbd8db03cd4450106f84eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac7b158d361a8c6cb21889f24a289b2a9" id="r_ac7b158d361a8c6cb21889f24a289b2a9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sketch__may08a_8ino.html#ac7b158d361a8c6cb21889f24a289b2a9">moveDegrees</a> (int targetDisplacement)</td></tr>
+<tr class="memdesc:ac7b158d361a8c6cb21889f24a289b2a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">move the lazy susan to however many degrees you want it to go.  <br /></td></tr>
+<tr class="separator:ac7b158d361a8c6cb21889f24a289b2a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87970820893027cd9891c44a2772c713" id="r_a87970820893027cd9891c44a2772c713"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sketch__may08a_8ino.html#a87970820893027cd9891c44a2772c713">moveDegreesAndShoot</a> (int deg)</td></tr>
+<tr class="separator:a87970820893027cd9891c44a2772c713"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58d8e4ef66abc81d0f9d758e0aaa0567" id="r_a58d8e4ef66abc81d0f9d758e0aaa0567"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sketch__may08a_8ino.html#a58d8e4ef66abc81d0f9d758e0aaa0567">flashLED</a> ()</td></tr>
+<tr class="memdesc:a58d8e4ef66abc81d0f9d758e0aaa0567"><td class="mdescLeft">&#160;</td><td class="mdescRight">flash teensy led.  <br /></td></tr>
+<tr class="separator:a58d8e4ef66abc81d0f9d758e0aaa0567"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac5a284878ab8c64560909e79c51bff1b" id="r_ac5a284878ab8c64560909e79c51bff1b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sketch__may08a_8ino.html#ac5a284878ab8c64560909e79c51bff1b">debugMenu</a> (int selection)</td></tr>
+<tr class="memdesc:ac5a284878ab8c64560909e79c51bff1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">debug menu  <br /></td></tr>
+<tr class="separator:ac5a284878ab8c64560909e79c51bff1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a003c17231846735a683b69486c821f9f" id="r_a003c17231846735a683b69486c821f9f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sketch__may08a_8ino.html#a003c17231846735a683b69486c821f9f">waitForUserInput</a> ()</td></tr>
+<tr class="memdesc:a003c17231846735a683b69486c821f9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">wait for user input from serial console.  <br /></td></tr>
+<tr class="separator:a003c17231846735a683b69486c821f9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a2ceb0f757748ea460204e32937332e4b" id="r_a2ceb0f757748ea460204e32937332e4b"><td class="memItemLeft" align="right" valign="top">Adafruit_VL53L0X&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sketch__may08a_8ino.html#a2ceb0f757748ea460204e32937332e4b">lox</a> = Adafruit_VL53L0X()</td></tr>
-<tr class="separator:a2ceb0f757748ea460204e32937332e4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb02da790664840464a149de56be1e35" id="r_aeb02da790664840464a149de56be1e35"><td class="memItemLeft" align="right" valign="top">VL53L0X&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sketch__may08a_8ino.html#aeb02da790664840464a149de56be1e35">sensor</a></td></tr>
+<tr class="separator:aeb02da790664840464a149de56be1e35"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a422c792b365050cadc9c69fa08cefc76" id="r_a422c792b365050cadc9c69fa08cefc76"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sketch__may08a_8ino.html#a422c792b365050cadc9c69fa08cefc76">XSHUT_PIN</a> = 17</td></tr>
 <tr class="memdesc:a422c792b365050cadc9c69fa08cefc76"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pin for controlling the XSHUT pin (D17).  <br /></td></tr>
 <tr class="separator:a422c792b365050cadc9c69fa08cefc76"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4bf6976f990537a3752d4a3ca073da51" id="r_a4bf6976f990537a3752d4a3ca073da51"><td class="memItemLeft" align="right" valign="top">const long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sketch__may08a_8ino.html#a4bf6976f990537a3752d4a3ca073da51">targetDisplacement</a> = 500</td></tr>
-<tr class="memdesc:a4bf6976f990537a3752d4a3ca073da51"><td class="mdescLeft">&#160;</td><td class="mdescRight">target displacement for sensing the goal.  <br /></td></tr>
-<tr class="separator:a4bf6976f990537a3752d4a3ca073da51"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a69e1ba7210d0853437606e573b4435b7" id="r_a69e1ba7210d0853437606e573b4435b7"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sketch__may08a_8ino.html#a69e1ba7210d0853437606e573b4435b7">oldPosition</a> = -999</td></tr>
+<tr class="memdesc:a69e1ba7210d0853437606e573b4435b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">target displacement for sensing the goal.  <br /></td></tr>
 <tr class="separator:a69e1ba7210d0853437606e573b4435b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af311db583d2310af71bd659e5def8229" id="r_af311db583d2310af71bd659e5def8229"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sketch__may08a_8ino.html#af311db583d2310af71bd659e5def8229">edge_integral</a> = 0</td></tr>
 <tr class="separator:af311db583d2310af71bd659e5def8229"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -193,6 +218,12 @@ Variables</h2></td></tr>
 <tr class="memitem:a43d9db6458a7789c582f9650ddbb1d64" id="r_a43d9db6458a7789c582f9650ddbb1d64"><td class="memItemLeft" align="right" valign="top">Motor&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sketch__may08a_8ino.html#a43d9db6458a7789c582f9650ddbb1d64">ls_motor</a> = Motor(<a class="el" href="sketch__may08a_8ino.html#a56d1066dbaa5c71e2241c467b2ab2aad">AIN1_lsm</a>, <a class="el" href="sketch__may08a_8ino.html#a34db8a1ca08a3ff52ef10fbe7ef1f298">AIN2_lsm</a>, <a class="el" href="sketch__may08a_8ino.html#a353f767532ef5d48c88fc8d6f7957b89">PWMA_lsm</a>, <a class="el" href="sketch__may08a_8ino.html#a03fa10acd8ead0d5cc8d8fc47a5334d0">offsetA</a>, <a class="el" href="sketch__may08a_8ino.html#ab13832618deef378733c67dcebfa39d7">STBY_lsm</a>)</td></tr>
 <tr class="memdesc:a43d9db6458a7789c582f9650ddbb1d64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Motor setup for controlling the lazy susan motor.  <br /></td></tr>
 <tr class="separator:a43d9db6458a7789c582f9650ddbb1d64"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a89bb95a4642f3cb15cfb0bcbd9fcb9c8" id="r_a89bb95a4642f3cb15cfb0bcbd9fcb9c8"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sketch__may08a_8ino.html#a89bb95a4642f3cb15cfb0bcbd9fcb9c8">lastPosition</a> = 0</td></tr>
+<tr class="separator:a89bb95a4642f3cb15cfb0bcbd9fcb9c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa82fbfd67d3a140efd9f368fc897e305" id="r_aa82fbfd67d3a140efd9f368fc897e305"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sketch__may08a_8ino.html#aa82fbfd67d3a140efd9f368fc897e305">isSlowingDown</a> = false</td></tr>
+<tr class="separator:aa82fbfd67d3a140efd9f368fc897e305"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac537155a9d691957d1ebdd441b25d417" id="r_ac537155a9d691957d1ebdd441b25d417"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sketch__may08a_8ino.html#ac537155a9d691957d1ebdd441b25d417">hasReachedTarget</a> = false</td></tr>
+<tr class="separator:ac537155a9d691957d1ebdd441b25d417"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Controls the NoPucksGiven robot. </p>
@@ -234,7 +265,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define BLACK_THRESHOLD&#160;&#160;&#160;800 /* adjust this for our starting sequence*/</td>
+          <td class="memname">#define BLACK_THRESHOLD&#160;&#160;&#160;300 /* adjust this for our starting sequence*/</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -494,6 +525,33 @@ Variables</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="ac5a284878ab8c64560909e79c51bff1b" name="ac5a284878ab8c64560909e79c51bff1b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac5a284878ab8c64560909e79c51bff1b">&#9670;&#160;</a></span>debugMenu()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void debugMenu </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>selection</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>debug menu </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">int</td><td>selection - menu select </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
+
+</div>
+</div>
 <a id="a8cd8b3b31c1baaeb8680088f2210e188" name="a8cd8b3b31c1baaeb8680088f2210e188"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8cd8b3b31c1baaeb8680088f2210e188">&#9670;&#160;</a></span>driveUntilBlackThenTurn()</h2>
 
@@ -511,7 +569,46 @@ Variables</h2></td></tr>
 
 <p>have the robot go forward until it reaches the black line, then start linefollwing. </p>
 <dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000001">Todo:</a></b></dt><dd>test! make sure it works :) </dd></dl>
+
+</div>
+</div>
+<a id="a58d8e4ef66abc81d0f9d758e0aaa0567" name="a58d8e4ef66abc81d0f9d758e0aaa0567"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a58d8e4ef66abc81d0f9d758e0aaa0567">&#9670;&#160;</a></span>flashLED()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void flashLED </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>flash teensy led. </p>
+<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
+
+</div>
+</div>
+<a id="abbae679121cbd8db03cd4450106f84eb" name="abbae679121cbd8db03cd4450106f84eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abbae679121cbd8db03cd4450106f84eb">&#9670;&#160;</a></span>goRightUntilFindBlackLine()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void goRightUntilFindBlackLine </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>have the robot go forward until it reaches the black line, then start linefollwing. </p>
+<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
 </div>
 </div>
@@ -611,6 +708,26 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a2ab76783b28d5e5b02c549d942a56afd" name="a2ab76783b28d5e5b02c549d942a56afd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ab76783b28d5e5b02c549d942a56afd">&#9670;&#160;</a></span>lineFollowUntilGoal()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lineFollowUntilGoal </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>invoke line following function until the tof sensor senses the goal. </p>
+<dl class="section return"><dt>Returns</dt><dd>void. </dd></dl>
+
+</div>
+</div>
 <a id="afe461d27b9c48d5921c00d521181f12f" name="afe461d27b9c48d5921c00d521181f12f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afe461d27b9c48d5921c00d521181f12f">&#9670;&#160;</a></span>loop()</h2>
 
@@ -657,6 +774,45 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>encoder setup for controlling the lazy susan motor </p>
+
+</div>
+</div>
+<a id="ac7b158d361a8c6cb21889f24a289b2a9" name="ac7b158d361a8c6cb21889f24a289b2a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac7b158d361a8c6cb21889f24a289b2a9">&#9670;&#160;</a></span>moveDegrees()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void moveDegrees </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>targetDisplacement</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>move the lazy susan to however many degrees you want it to go. </p>
+<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
+
+</div>
+</div>
+<a id="a87970820893027cd9891c44a2772c713" name="a87970820893027cd9891c44a2772c713"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87970820893027cd9891c44a2772c713">&#9670;&#160;</a></span>moveDegreesAndShoot()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void moveDegreesAndShoot </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>deg</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -775,6 +931,66 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a07b6a6687947b7dbcfa8bb11a7d0e80c" name="a07b6a6687947b7dbcfa8bb11a7d0e80c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a07b6a6687947b7dbcfa8bb11a7d0e80c">&#9670;&#160;</a></span>shootPuck()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void shootPuck </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>turn on puck shooter motor then turn off. </p>
+<dl class="section return"><dt>Returns</dt><dd>void. </dd></dl>
+
+</div>
+</div>
+<a id="a7b5afe30df99675b8ff5e2dd9a5f4abb" name="a7b5afe30df99675b8ff5e2dd9a5f4abb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b5afe30df99675b8ff5e2dd9a5f4abb">&#9670;&#160;</a></span>testQTR()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void testQTR </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>test the QTR and the values it's reading </p>
+<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
+
+</div>
+</div>
+<a id="a003c17231846735a683b69486c821f9f" name="a003c17231846735a683b69486c821f9f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a003c17231846735a683b69486c821f9f">&#9670;&#160;</a></span>waitForUserInput()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void waitForUserInput </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>wait for user input from serial console. </p>
+<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
+
+</div>
+</div>
 <h2 class="groupheader">Variable Documentation</h2>
 <a id="af311db583d2310af71bd659e5def8229" name="af311db583d2310af71bd659e5def8229"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af311db583d2310af71bd659e5def8229">&#9670;&#160;</a></span>edge_integral</h2>
@@ -804,6 +1020,20 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="ac537155a9d691957d1ebdd441b25d417" name="ac537155a9d691957d1ebdd441b25d417"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac537155a9d691957d1ebdd441b25d417">&#9670;&#160;</a></span>hasReachedTarget</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hasReachedTarget = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="aa45e4298780b6ba5be1edea95b5336ef" name="aa45e4298780b6ba5be1edea95b5336ef"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa45e4298780b6ba5be1edea95b5336ef">&#9670;&#160;</a></span>integralError</h2>
 
@@ -812,6 +1042,20 @@ Variables</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">float integralError = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa82fbfd67d3a140efd9f368fc897e305" name="aa82fbfd67d3a140efd9f368fc897e305"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa82fbfd67d3a140efd9f368fc897e305">&#9670;&#160;</a></span>isSlowingDown</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool isSlowingDown = false</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -832,14 +1076,14 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a2ceb0f757748ea460204e32937332e4b" name="a2ceb0f757748ea460204e32937332e4b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2ceb0f757748ea460204e32937332e4b">&#9670;&#160;</a></span>lox</h2>
+<a id="a89bb95a4642f3cb15cfb0bcbd9fcb9c8" name="a89bb95a4642f3cb15cfb0bcbd9fcb9c8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a89bb95a4642f3cb15cfb0bcbd9fcb9c8">&#9670;&#160;</a></span>lastPosition</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">Adafruit_VL53L0X lox = Adafruit_VL53L0X()</td>
+          <td class="memname">long lastPosition = 0</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -888,6 +1132,8 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>target displacement for sensing the goal. </p>
+
 </div>
 </div>
 <a id="a9e05607474a03ba0b5bd2ee27c003524" name="a9e05607474a03ba0b5bd2ee27c003524"></a>
@@ -898,6 +1144,20 @@ Variables</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">QTRSensors qtr</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aeb02da790664840464a149de56be1e35" name="aeb02da790664840464a149de56be1e35"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeb02da790664840464a149de56be1e35">&#9670;&#160;</a></span>sensor</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">VL53L0X sensor</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -915,22 +1175,6 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
-</div>
-</div>
-<a id="a4bf6976f990537a3752d4a3ca073da51" name="a4bf6976f990537a3752d4a3ca073da51"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4bf6976f990537a3752d4a3ca073da51">&#9670;&#160;</a></span>targetDisplacement</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const long targetDisplacement = 500</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>target displacement for sensing the goal. </p>
 
 </div>
 </div>

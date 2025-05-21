@@ -11,7 +11,6 @@
 //finding the black line and starting to linefollowing
 //tof goal finder works
 
-
 /**
  * @file sketch_may08a.ino
  * @brief Controls the NoPucksGiven robot.
@@ -21,6 +20,7 @@
 
 //imports
 #include <Arduino.h>
+
 #include <TeensyThreads.h>
 
 
@@ -38,6 +38,7 @@
 
 //TOF STUFF
 VL53L0X sensor;
+#define LONG_RANGE
 /** @brief Pin for controlling the XSHUT pin (D17).*/
 const int XSHUT_PIN = 17;
 /** @brief target displacement for sensing the goal.*/
@@ -141,14 +142,6 @@ void setup() {
 
   //for i2c
   Wire.begin();
-  delay(1000);
-  // Serial.println("calibrate robot");
-  // for (int i = 0; i < 1000; i++) { //calibrate robot
-  //   qtr.calibrate();
-  //   delay(5);
-  // }
-  // Serial.println("robot calibrate done");
-  // delay(5000);
 
   //FOR TOF - TURNS IT ON
   pinMode(XSHUT_PIN, OUTPUT);
@@ -160,10 +153,12 @@ void setup() {
     Serial.println("Failed to detect and initialize sensor!");
     sensor.init();
   }
-
+  sensor.setSignalRateLimit(0.1);
+  // increase laser pulse periods (defaults are 14 and 10 PCLKs)
+  sensor.setVcselPulsePeriod(VL53L0X::VcselPeriodPreRange, 18);
+  sensor.setVcselPulsePeriod(VL53L0X::VcselPeriodFinalRange, 14);
   sensor.startContinuous();
 
-  Serial.println("Setup complete.");
   //reset all encoders
   rightM.write(0);
   leftM.write(0);
@@ -175,51 +170,39 @@ void setup() {
   pinMode(PWMA_sm, OUTPUT);
   digitalWrite(IN1_sm, HIGH);
   digitalWrite(IN2_sm, LOW);
-  
-  for (int i = 0; i < 1000; i++) {
-    qtr.calibrate();
-    delay(5);
-  }
-  flashLED();
 
+  
+  flashLED();
+  Serial.println("1. calibrate robot");
+  Serial.println("2. line follow");
+  Serial.println("3. line follow until goal");
+  Serial.println("4. lazy susan rotate");
+  Serial.println("5. shooter motor");
+  Serial.println("6. test ToF");
+  Serial.println("input choice: ");
 }
+
+
 /**
  * @brief loop function.
  */
 void loop() {
   // put your main code here, to run repeatedly:
-  delay(10000);
-  flashLED();
-  //threads.addThread([]() { moveDegrees(-90);});
-  threads.addThread([]() { shootPuck();});
-  threads.stop();
-  //threads.addThread([]() { moveDegrees(-50);});
-
-  moveDegreesAndShoot(-90); // enables the thread then disables it
-  delay(1500);
-  driveUntilBlackThenTurn();
-  goRightUntilFindBlackLine();
-  lineFollowUntilGoal();
-  moveDegreesAndShoot(110);
-  flashLED();
-  delay(1000);
-  // just shot the second puck
-
-  moveDegrees(-140);
-  moveDegrees(-140);
-  moveDegrees(-140);
-  shootPuck();
-  //all after this untested.
-  lineFollowUntilGoal();
-  //LOOK AT DIAGRAM FOR THING.
-  
-  moveDegrees(-200);
-
-  threads.addThread([]() { moveDegrees(-50);});
-  delay(500);
-  threads.addThread([]() { shootPuck();});
-   threads.addThread([]() { moveDegrees(-50);});
-  while (1);
+    
+    if (Serial.available() > 0) {
+      int sel = Serial.parseInt();
+      debugMenu(sel);
+      Serial.println("1. calibrate robot");
+      Serial.println("2. line follow");
+      Serial.println("3. line follow until goal");
+      Serial.println("4. lazy susan rotate");
+      Serial.println("5. shooter motor");
+      Serial.println("6. test ToF");
+      Serial.println("input choice: ");
+  } else{
+    int meow = Serial.read();
+    delay(200);
+  }
 }
 /**
  * @brief turn on puck shooter motor then turn off.
@@ -227,11 +210,9 @@ void loop() {
  */
 void shootPuck() {
   analogWrite(PWMA_sm, 1000);
-  delay(5000);
-  // analogWrite(PWMA_sm, 0);
-  // delay(3000); // Run at full speed for 2 seconds
+  delay(10000);
+  analogWrite(PWMA_sm, 0);
 }
-
 
 /**
  * @brief invoke line following function until the tof sensor senses the goal.
@@ -239,25 +220,23 @@ void shootPuck() {
  */
 void lineFollowUntilGoal() {
   bool flag = false;
-  uint16_t range = sensor.readRangeContinuousMillimeters();
+  uint16_t range = sensor.readRangeSingleMillimeters();
   bool flag160 = false;
   int counter = 0;
   while (!flag) {
-    range = sensor.readRangeContinuousMillimeters();
+    range = sensor.readRangeSingleMillimeters();
     delay(5);
 
     lineFollow();
-    if (range > 145) {
+    if (range > 160) {
       flag160 = true;
-      if (counter == 0){
-        threads.addThread([]() { moveDegrees(-100);}); //move puck 90 degrees
-      }
     }
-    if ((range > 95) && (range < 130) && (flag160 == true)) {
+    if ((range > 100) && (range < 140) && (flag160 == true)) {
       leftMotor.setSpeed(0);
       rightMotor.setSpeed(0);
       flag = true;
     }
+    Serial.println(range);
   }
   Serial.println("found goal");
 }
@@ -445,14 +424,138 @@ void moveDegrees(int targetDisplacement) {
 }
 
 void moveDegreesAndShoot(int deg) {
-  threads.start();          // Pause all thread switching
-  moveDegrees(deg);            // Call your function that shouldn't be interrupted
-  threads.stop();           // Resume normal thread scheduling
+  threads.start(); // Pause all thread switching
+  moveDegrees(deg); // Call your function that shouldn't be interrupted
+  threads.stop(); // Resume normal thread scheduling
 }
 
+/**
+ * @brief flash teensy led.
+ * @return void
+ */
+ 
 void flashLED() {
   digitalWrite(LED_BUILTIN, HIGH);
   delay(500);
   digitalWrite(LED_BUILTIN, LOW);
 }
 
+
+void lineFollowUntilGoalAndExtras() {
+  bool flag = false;
+  uint16_t range = sensor.readRangeSingleMillimeters();
+  bool flag160 = false;
+  bool puckFlag = false;
+  int counter = 0;
+  while (!flag) {
+    range = sensor.readRangeSingleMillimeters();
+    delay(5);
+    lineFollow();
+    if(puckFlag == false){
+      if(range > 270){
+         puckFlag = true;
+         delay(2);
+      }
+    }
+    if(puckFlag == true){
+    if (range > 160) {
+      flag160 = true;
+      threads.addThread([]() { moveDegrees(-220);});
+    }
+    if ((range > 100) && (range < 140) && (flag160 == true)) {
+      leftMotor.setSpeed(0);
+      rightMotor.setSpeed(0);
+      flag = true;
+    }
+    }
+    Serial.println(range);
+  }
+  Serial.println("found goal");
+}
+
+/**
+ * @brief debug menu
+ * @param int selection - menu select
+ * @return void
+ */
+void debugMenu(int selection) {
+  delay(300);
+  switch (selection) {
+  case 1:
+    Serial.println("calibrate robot");
+    delay(1000);
+    Serial.println("calibrate robot");
+    for (int i = 0; i < 1000; i++) { //calibrate robot
+      qtr.calibrate();
+      delay(5);
+    }
+    Serial.println("robot calibrate done");
+    delay(5000);
+    break;
+
+  case 2:{
+    Serial.println("linefollow");
+    bool flag = false;
+    while (!flag) {
+      lineFollow();
+      Serial.println("m");
+      if (Serial.available() > 0){
+        flag = true;
+      }
+    }
+    leftMotor.setSpeed(0);
+    rightMotor.setSpeed(0);
+  }
+    break;
+  case 3:
+    Serial.println("line follow until goal");
+    lineFollowUntilGoal();
+    break;
+  case 4:
+    {
+    Serial.println("rotate lazy susan");
+    Serial.print("what do you want it to rotate to? ");
+    waitForUserInput();
+    delay(500);
+    int deg = Serial.parseInt();
+    moveDegrees(deg);
+    }
+    break;
+  case 5:
+    Serial.println("turn on shooter motor");
+    shootPuck();
+    break;
+  case 6:{
+    Serial.println("test ToF");
+    bool flag = false;
+
+    uint16_t range = sensor.readRangeSingleMillimeters();
+    while (!flag) {
+      range = sensor.readRangeSingleMillimeters();
+      Serial.println(range);
+      delay(100);
+      if (Serial.available() > 0){
+        flag = true;
+      }
+    }
+  }
+  break;
+  }
+  
+}
+
+
+/**
+ * @brief wait for user input from serial console.
+ * @return void
+ */
+void waitForUserInput() {
+  
+  while (Serial.available() <= 0) {
+  }
+}
+//void debug console:
+//case 1 2 3 4 etc.
+
+//each time case asks you what value you want.
+//case stop

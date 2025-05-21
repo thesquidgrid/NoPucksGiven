@@ -1,5 +1,8 @@
 var searchData=
 [
-  ['max_5fspeed_0',['MAX_SPEED',['../sketch__may08a_8ino.html#ac2cd96d53dd3ba6407db6766c3d92b26',1,'sketch_may08a.ino']]],
-  ['min_5fspeed_1',['MIN_SPEED',['../sketch__may08a_8ino.html#ad5f5efaa5cb771bd06da4bfe6046809e',1,'sketch_may08a.ino']]]
+  ['ignore_5ferror_5fthreshold_0',['IGNORE_ERROR_THRESHOLD',['../sketch__may08a_8ino.html#a5f107c515bf76e1901169a4106d6ba38',1,'sketch_may08a.ino']]],
+  ['in1_5fsm_1',['IN1_sm',['../sketch__may08a_8ino.html#a7c9d953707d165249badc8afeb0d4d90',1,'sketch_may08a.ino']]],
+  ['in2_5fsm_2',['IN2_sm',['../sketch__may08a_8ino.html#a961480e558344324a87c321e0a260869',1,'sketch_may08a.ino']]],
+  ['integralerror_3',['integralError',['../sketch__may08a_8ino.html#aa45e4298780b6ba5be1edea95b5336ef',1,'sketch_may08a.ino']]],
+  ['isslowingdown_4',['isSlowingDown',['../sketch__may08a_8ino.html#aa82fbfd67d3a140efd9f368fc897e305',1,'sketch_may08a.ino']]]
 ];
