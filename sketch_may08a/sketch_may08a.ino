@@ -156,13 +156,7 @@ void setup() {
   digitalWrite(IN2_sm, LOW);
 
   flashLED();
-  Serial.println("1. calibrate robot");
-  Serial.println("2. line follow");
-  Serial.println("3. line follow until goal");
-  Serial.println("4. lazy susan rotate");
-  Serial.println("5. shooter motor");
-  Serial.println("6. test ToF");
-  Serial.println("input choice: ");
+  debugPrintout();
 }
 
 /**
@@ -193,17 +187,22 @@ void loop() {
   if (Serial.available() > 0) {
     int sel = Serial.parseInt();
     debugMenu(sel);
-    Serial.println("1. calibrate robot");
-    Serial.println("2. line follow");
-    Serial.println("3. line follow until goal");
-    Serial.println("4. lazy susan rotate");
-    Serial.println("5. shooter motor");
-    Serial.println("6. test ToF");
-    Serial.println("input choice: ");
+    debugPrintout();
   } else {
     int meow = Serial.read();
     delay(200);
   }
+}
+
+void debugPrintout(){
+  Serial.println("1. calibrate robot");
+  Serial.println("2. line follow");
+  Serial.println("3. line follow until goal");
+  Serial.println("4. lazy susan rotate");
+  Serial.println("5. shooter motor");
+  Serial.println("6. test ToF");
+  Serial.println("7. testing funnle routine");
+  Serial.println("input choice: ");
 }
 /**
  * @brief turn on puck shooter motor then turn off.
@@ -393,6 +392,8 @@ void goRightUntilFindBlackLine() {
  * @brief move the lazy susan to however many degrees you want it to go.
  * @return void
  */
+
+ 
 void moveDegrees(int targetDisplacement) {
   bool isSlowingDown = false;
   bool hasReachedTarget = false;
@@ -426,6 +427,46 @@ void moveDegrees(int targetDisplacement) {
       isSlowingDown = true;
     }
   }
+}
+
+void moveDegreesWhileMovingForward(int targetDisplacement) {
+  bool isSlowingDown = false;
+  bool hasReachedTarget = false;
+  const long slowDownThreshold = 30;
+  int direction = (targetDisplacement >= 0) ? 1 : -1;
+  long targetPosition = lastPosition + targetDisplacement;  
+  delay(100);
+  
+  rightMotor.setSpeed(150);
+  leftMotor.setSpeed(150);
+  
+  ls_motor.drive(40 * direction); 
+  
+  while (!hasReachedTarget) {
+    delay(10);
+    long position = lsMotor.read();  
+
+    // Only update lastPosition if encoder value changed
+    if (position != lastPosition) {
+      lastPosition = position;
+      Serial.print("Current position: " + position);
+    }
+
+    // Movement logic (use direction to determine comparison)
+    if ((direction == 1 && position >= targetPosition) || (direction == -1 && position <= targetPosition)) {
+      ls_motor.brake();
+      Serial.println("Reached target!");
+      hasReachedTarget = true;
+    } 
+    else if (!isSlowingDown &&((direction == 1 && position >= targetPosition - slowDownThreshold) || (direction == -1 && position <= targetPosition + slowDownThreshold))) {
+      ls_motor.drive(20 * direction);
+      Serial.println("Slowing down...");
+      isSlowingDown = true;
+    }
+  }
+  delay(100);
+  rightMotor.setSpeed(0);
+  leftMotor.setSpeed(0);
 }
 
 /**
@@ -504,6 +545,9 @@ void debugMenu(int selection) {
       }
     }
   }
+  break;
+  case 7: 
+    moveDegreesWhileMovingForward(330);
   break;
   }
 
