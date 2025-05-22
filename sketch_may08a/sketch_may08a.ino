@@ -1,15 +1,6 @@
 // what we need to get done:
 // - funneling stuff with black puck 
 // - creating proper routine for shooting pucks in the way our diagram shows
-// setting up pushbutton and properly integrating state machine
-// auto calibration for our local board - will use auto calibrate on the competition board
-// tof sensing 200 - 160 to know when to turn the lazy susan to funnel the puck in
-
-//what is done:
-//line following:
-//lazy susan turning
-//finding the black line and starting to linefollowing
-//tof goal finder works
 
 /**
  * @file sketch_may08a.ino
@@ -112,8 +103,6 @@ Encoder lsMotor(5, 6); // Attach encoder to pins 5 and 6
 // Movement settings
 
 long lastPosition = 0;
-bool isSlowingDown = false;
-bool hasReachedTarget = false;
 
 /**
  * @brief setup function.
@@ -399,60 +388,44 @@ void goRightUntilFindBlackLine() {
   rightMotor.setSpeed(0);
 }
 
+
 /**
  * @brief move the lazy susan to however many degrees you want it to go.
  * @return void
  */
-
 void moveDegrees(int targetDisplacement) {
-  long lastPosition = 0;
   bool isSlowingDown = false;
   bool hasReachedTarget = false;
   const long slowDownThreshold = 30;
 
   int direction = (targetDisplacement >= 0) ? 1 : -1;
-  targetDisplacement = abs(targetDisplacement); // Work with magnitude for thresholding
-
-  lsMotor.write(0); // Reset encoder before starting
+  long targetPosition = lastPosition + targetDisplacement;  
   delay(100);
 
-  ls_motor.drive(40 * direction); // Start moving in correct direction
+  ls_motor.drive(40 * direction); 
 
   while (!hasReachedTarget) {
     delay(10);
+    long position = lsMotor.read();  
 
-    long position = abs(lsMotor.read()); // Use absolute position for comparison
-    long currentPosition = lsMotor.read(); // For signed value if needed for debug
-
-    // Print encoder position if changed
-    if (abs(position - lastPosition) >= 1) {
+    // Only update lastPosition if encoder value changed
+    if (position != lastPosition) {
       lastPosition = position;
-      Serial.println(currentPosition); // show signed value
+      Serial.print("Current position: " + position);
     }
 
-    // Transition logic
-    if (position >= targetDisplacement) {
-      // Stop condition
+    // Movement logic (use direction to determine comparison)
+    if ((direction == 1 && position >= targetPosition) || (direction == -1 && position <= targetPosition)) {
       ls_motor.brake();
       Serial.println("Reached target!");
-
       hasReachedTarget = true;
-      delay(2000);
-      lsMotor.write(0); // Reset encoder
-      lastPosition = 0;
-    } else if (!isSlowingDown && position >= targetDisplacement - slowDownThreshold) {
-      // Begin slowing down
-      ls_motor.drive(50 * direction);
-      isSlowingDown = true;
+    } 
+    else if (!isSlowingDown &&((direction == 1 && position >= targetPosition - slowDownThreshold) || (direction == -1 && position <= targetPosition + slowDownThreshold))) {
+      ls_motor.drive(20 * direction);
       Serial.println("Slowing down...");
+      isSlowingDown = true;
     }
   }
-}
-
-void moveDegreesAndShoot(int deg) {
-  threads.start(); // Pause all thread switching
-  moveDegrees(deg); // Call your function that shouldn't be interrupted
-  threads.stop(); // Resume normal thread scheduling
 }
 
 /**
