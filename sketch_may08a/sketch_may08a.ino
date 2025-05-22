@@ -80,7 +80,7 @@ MC33926MotorShield leftMotor(12, 10, 11, 24, 26);
 /** @brief Motor setup for controlling the left motor*/
 MC33926MotorShield rightMotor(9, 7, 8, 25, 26);
 
-#define MAX_SPEED 220
+#define MAX_SPEED 200
 #define MIN_SPEED 0
 #define SET_SPEED 180 // increase this with
 
@@ -121,154 +121,150 @@ bool hasReachedTarget = false;
 
 void setup() {
 
-   pinMode(LED_BUILTIN, OUTPUT); // built in teensy light for state knowledge
+  pinMode(LED_BUILTIN, OUTPUT); // built in teensy light for state knowledge
 
-   Serial.begin(115200);
-   // Initialize Motors
-   leftMotor.begin();
-   rightMotor.begin();
+  Serial.begin(115200);
+  // Initialize Motors
+  leftMotor.begin();
+  rightMotor.begin();
 
-   //initalize sensor pins
-   qtr.setSensorPins((const uint8_t[]) {
-      16,
-      15,
-      14,
-      41,
-      40,
-      39,
-      38
-   }, SENSOR_NUMS);
-   qtr.setTypeAnalog(); // Important!
+  //initalize sensor pins
+  qtr.setSensorPins((const uint8_t[]) {
+    16,
+    15,
+    14,
+    41,
+    40,
+    39,
+    38
+  }, SENSOR_NUMS);
+  qtr.setTypeAnalog(); // Important!
 
-   //for i2c
-   Wire.begin();
+  //for i2c
+  Wire.begin();
 
-   //FOR TOF - TURNS IT ON
-   pinMode(XSHUT_PIN, OUTPUT);
-   digitalWrite(XSHUT_PIN, HIGH); // Bring the sensor out of reset
-   delay(100);
+  //FOR TOF - TURNS IT ON
+  pinMode(XSHUT_PIN, OUTPUT);
+  digitalWrite(XSHUT_PIN, HIGH); // Bring the sensor out of reset
+  delay(100);
 
-   sensor.setTimeout(500);
-   while (!sensor.init()) {
-      Serial.println("Failed to detect and initialize sensor!");
-      sensor.init();
-   }
-   sensor.setSignalRateLimit(0.1);
-   // increase laser pulse periods (defaults are 14 and 10 PCLKs)
-   sensor.setVcselPulsePeriod(VL53L0X::VcselPeriodPreRange, 18);
-   sensor.setVcselPulsePeriod(VL53L0X::VcselPeriodFinalRange, 14);
-   sensor.setMeasurementTimingBudget(200000);
-   sensor.startContinuous();
+  sensor.setTimeout(500);
+  while (!sensor.init()) {
+    Serial.println("Failed to detect and initialize sensor!");
+    sensor.init();
+  }
 
-   //reset all encoders
-   rightM.write(0);
-   leftM.write(0);
-   lsMotor.write(0);
+  //reset all encoders
+  rightM.write(0);
+  leftM.write(0);
+  lsMotor.write(0);
 
-   //shooter motor setup:
-   pinMode(IN1_sm, OUTPUT);
-   pinMode(IN2_sm, OUTPUT);
-   pinMode(PWMA_sm, OUTPUT);
-   digitalWrite(IN1_sm, HIGH);
-   digitalWrite(IN2_sm, LOW);
+  //shooter motor setup:
+  pinMode(IN1_sm, OUTPUT);
+  pinMode(IN2_sm, OUTPUT);
+  pinMode(PWMA_sm, OUTPUT);
+  digitalWrite(IN1_sm, HIGH);
+  digitalWrite(IN2_sm, LOW);
 
-   flashLED();
-   Serial.println("1. calibrate robot");
-   Serial.println("2. line follow");
-   Serial.println("3. line follow until goal");
-   Serial.println("4. lazy susan rotate");
-   Serial.println("5. shooter motor");
-   Serial.println("6. test ToF");
-   Serial.println("7. moveforward a little bit");
-   Serial.println("8. move forward and shoot puck");
-   Serial.println("input choice: ");
+  flashLED();
+  Serial.println("1. calibrate robot");
+  Serial.println("2. line follow");
+  Serial.println("3. line follow until goal");
+  Serial.println("4. lazy susan rotate");
+  Serial.println("5. shooter motor");
+  Serial.println("6. test ToF");
+  Serial.println("input choice: ");
 }
 
 /**
  * @brief loop function.
  */
 void loop() {
-   // put your main code here, to run repeatedly:
-   //debug menu 1.) calibrate 2.) run code:
-   //go forward until black line
-   //turn until black line
-   //go until robot other side
-   //run code to shoot puck
-   //shoot puck and then continue on
-   
-   
-
-   if (Serial.available() > 0) {
-      int sel = Serial.parseInt();
-      debugMenu(sel);
-      Serial.println("1. calibrate robot");
-      Serial.println("2. line follow");
-      Serial.println("3. line follow until goal");
-      Serial.println("4. lazy susan rotate");
-      Serial.println("5. shooter motor");
-      Serial.println("6. test ToF");
-      Serial.println("7. moveforward a little bit");
-      Serial.println("8. move forward and shoot puck");
-      Serial.println("input choice: ");
-   } else {
-      int meow = Serial.read();
-      delay(200);
-   }
+  //    flashLED();
+  //    Serial.println("meow");
+  //    for (int i = 0; i < 1000; i++) { //calibrate robot
+  //      qtr.calibrate();
+  //      delay(5);
+  //    }
+  //    flashLED();
+  //    Serial.println("meow2");
+  //    delay(5000);
+  //  // put your main code here, to run repeatedly:
+  //    driveUntilBlackThenTurn();
+  //    goRightUntilFindBlackLine();
+  //    lineFollowUntilGoal();
+  //    delay(500);
+  //    lineFollowUntilGoal();
+  //    delay(500);
+  //    lineFollowUntilGoal();
+  //    delay(500);
+  //    lineFollowUntilGoal();
+  //    delay(500);
+  //    while(1);
+  if (Serial.available() > 0) {
+    int sel = Serial.parseInt();
+    debugMenu(sel);
+    Serial.println("1. calibrate robot");
+    Serial.println("2. line follow");
+    Serial.println("3. line follow until goal");
+    Serial.println("4. lazy susan rotate");
+    Serial.println("5. shooter motor");
+    Serial.println("6. test ToF");
+    Serial.println("input choice: ");
+  } else {
+    int meow = Serial.read();
+    delay(200);
+  }
 }
 /**
  * @brief turn on puck shooter motor then turn off.
  * @return void. 
  */
 void shootPuck() {
-   analogWrite(PWMA_sm, 1000);
-   delay(10000);
-   analogWrite(PWMA_sm, 0);
+  analogWrite(PWMA_sm, 1000);
+  delay(10000);
+  analogWrite(PWMA_sm, 0);
 }
 
+/**
+ * @brief invoke line following function until the tof sensor senses the goal.
+ * @return void. 
+ */
 void lineFollowUntilGoal() {
-  bool flag = false;
+  bool detectStrip = false;
+  int sensorCount = 0;
   uint16_t range = sensor.readRangeSingleMillimeters();
-  bool flag160 = false;
+  
+  lsMotor.write(0); // Reset encoder before starting
+  delay(100);
   int counter = 0;
-  while (!flag) {
+  while (!detectStrip) {
+    qtr.read(sensorValues);
     range = sensor.readRangeSingleMillimeters();
-    delay(5);
 
-    lineFollow();
-    if (range > 160) {
-      flag160 = true;
+    for (int i = 0; i < SENSOR_NUMS; i++) {
+      if (sensorValues[i] > BLACK_THRESHOLD) {
+        sensorCount++;
+      }
     }
-    if ((range > 100) && (range < 140) && (flag160 == true)) {
-      leftMotor.setSpeed(0);
-      rightMotor.setSpeed(0);
-      flag = true;
-    }
-    Serial.println(range);
-  }
-  Serial.println("found goal");
-}
-
-void lineFollowUntilGoalOtherSide() {
-   bool flag = false;
-   uint16_t range = sensor.readRangeSingleMillimeters();
-   bool flag180 = false;
-   int counter = 0;
-   while (!flag) {
-      range = sensor.readRangeSingleMillimeters();
-      delay(5);
-
+    if (sensorCount > 3) {
+      detectStrip = true;
+    } else {
       lineFollow();
-      if (range > 180) {
-         flag180 = true;
-      }
-      if ((range > 180) && (range < 190) && (flag180 == true)) {
-         leftMotor.setSpeed(0);
-         rightMotor.setSpeed(0);
-         flag = true;
-      }
-      Serial.println(range);
-   }
-   Serial.println("found goal");
+      sensorCount = 0;
+    }
+    if (range < 47){
+      threads.start(); 
+      threads.addThread(moveDegrees, 110);
+      
+    }
+    delay(5); //delay to give it its bearings
+  }
+
+  Serial.println("found black line");
+  // stop and delay
+  leftMotor.setSpeed(0);
+  rightMotor.setSpeed(0);
 }
 
 /**
@@ -276,7 +272,7 @@ void lineFollowUntilGoalOtherSide() {
  * @return int what the qtr sensor senses. 
  */
 int readPosition() {
-   return qtr.readLineBlack(sensorValues); // Populate sensorValues[]
+  return qtr.readLineBlack(sensorValues); // Populate sensorValues[]
 }
 
 /**
@@ -284,25 +280,25 @@ int readPosition() {
  * @return void
  */
 void lineFollow() {
-   int position = readPosition();
-   int error = position - SETPOINT;
+  int position = readPosition();
+  int error = position - SETPOINT;
 
-   // PID math
-   int proportional = error;
-   integralError += error;
-   int derivative = error - lastError;
-   int correction = (KP * proportional) + (KI * integralError) + (KD * derivative);
-   lastError = error;
+  // PID math
+  int proportional = error;
+  integralError += error;
+  int derivative = error - lastError;
+  int correction = (KP * proportional) + (KI * integralError) + (KD * derivative);
+  lastError = error;
 
-   // Speed adjustment
-   int leftSpeed = SET_SPEED - correction;
-   int rightSpeed = SET_SPEED + correction;
+  // Speed adjustment
+  int leftSpeed = SET_SPEED - correction;
+  int rightSpeed = SET_SPEED + correction;
 
-   leftSpeed = constrain((SET_SPEED + correction), MIN_SPEED, MAX_SPEED);
-   rightSpeed = constrain((SET_SPEED - correction), MIN_SPEED, MAX_SPEED);
+  leftSpeed = constrain((SET_SPEED + correction), MIN_SPEED, MAX_SPEED);
+  rightSpeed = constrain((SET_SPEED - correction), MIN_SPEED, MAX_SPEED);
 
-   leftMotor.setSpeed(leftSpeed);
-   rightMotor.setSpeed(rightSpeed);
+  leftMotor.setSpeed(leftSpeed);
+  rightMotor.setSpeed(rightSpeed);
 }
 
 /**
@@ -310,124 +306,64 @@ void lineFollow() {
  * @return void
  */
 void driveUntilBlackThenTurn() {
-   // Drive forward
-   leftMotor.setSpeed(150);
-   rightMotor.setSpeed(150);
+  // Drive forward
+  leftMotor.setSpeed(150);
+  rightMotor.setSpeed(150);
 
-   // Wait until all sensors see black
-   bool detectStrip = false;
-   int sensorCount = 0;
-   while (!detectStrip) {
-      qtr.read(sensorValues);
+  // Wait until all sensors see black
+  bool detectStrip = false;
+  int sensorCount = 0;
+  while (!detectStrip) {
+    qtr.read(sensorValues);
 
-      for (int i = 0; i < SENSOR_NUMS; i++) {
-         if (sensorValues[i] > BLACK_THRESHOLD) {
-            sensorCount++;
-         }
+    for (int i = 0; i < SENSOR_NUMS; i++) {
+      if (sensorValues[i] > BLACK_THRESHOLD) {
+        sensorCount++;
       }
-      if (sensorCount > 3) {
-         detectStrip = true;
-      } else {
-         sensorCount = 0;
-      }
-      delay(5); //delay to give it its bearings
-   }
+    }
+    if (sensorCount > 3) {
+      detectStrip = true;
+    } else {
+      sensorCount = 0;
+    }
+    delay(5); //delay to give it its bearings
+  }
 
-   Serial.println("found black line");
-   // stop and delay
-   leftMotor.setSpeed(0);
-   rightMotor.setSpeed(0);
-   delay(200);
+  Serial.println("found black line");
+  // stop and delay
+  leftMotor.setSpeed(0);
+  rightMotor.setSpeed(0);
+  delay(200);
 
-   // move forward for just a little bit
-   rightMotor.setSpeed(150);
-   leftMotor.setSpeed(150);
-   delay(200); /* adjust this delay to make it consistent*/
+  // move forward for just a little bit
+  rightMotor.setSpeed(150);
+  leftMotor.setSpeed(150);
+  delay(200); /* adjust this delay to make it consistent*/
 
-   //stop
-   leftMotor.setSpeed(0);
-   rightMotor.setSpeed(0);
-   delay(200);
+  //stop
+  leftMotor.setSpeed(0);
+  rightMotor.setSpeed(0);
+  delay(200);
 }
 
 /**
  * @brief test the QTR and the values it's reading
  * @return void
  */
-
-void moveForwardALittleBit() {
- 
-    
-   leftMotor.setSpeed(150);
-   rightMotor.setSpeed(170);
-   delay(500);
-   leftMotor.setSpeed(0);
-   rightMotor.setSpeed(0);
-}
-
-void test() {
-   moveForwardALittleBit();
-   long lastPosition = 0;
-   bool isSlowingDown = false;
-   bool hasReachedTarget = false;
-   const long slowDownThreshold = 40;
-
-   int direction = 1;
-   int targetDisplacement = 110; // Work with magnitude for thresholding
-
-   lsMotor.write(0); // Reset encoder before starting
-   delay(100);
-
-   ls_motor.drive(40 * direction); // Start moving in correct direction
-   while (!hasReachedTarget) {
-
-      delay(10);
-
-      long position = abs(lsMotor.read()); // Use absolute position for comparison
-      long currentPosition = lsMotor.read(); // For signed value if needed for debug
-
-      // Print encoder position if changed
-      if (abs(position - lastPosition) >= 1) {
-         lastPosition = position;
-         Serial.println(currentPosition); // show signed 
-         analogWrite(PWMA_sm, 1000);
-      }
-
-      // Transition logic
-      if (position >= targetDisplacement) {
-         // Stop condition
-         ls_motor.brake();
-         Serial.println("Reached target!");
-
-         hasReachedTarget = true;
-         delay(2000);
-         lsMotor.write(0); // Reset encoder
-         lastPosition = 0;
-      } else if (!isSlowingDown && position >= targetDisplacement - slowDownThreshold) {
-         // Begin slowing down
-
-         ls_motor.drive(50 * direction);
-         isSlowingDown = true;
-         Serial.println("Slowing down...");
-      }
-   }
-   delay(1000);
-   analogWrite(PWMA_sm, 0);
-}
 void testQTR() {
-   // Read raw sensor values into the array
-   qtr.read(sensorValues);
+  // Read raw sensor values into the array
+  qtr.read(sensorValues);
 
-   // Print each value to the Serial Monitor
-   for (int i = 0; i < SENSOR_NUMS; i++) {
-      Serial.print("Sensor ");
-      Serial.print(i);
-      Serial.print(": ");
-      Serial.print(sensorValues[i]);
-      Serial.print("\t");
-   }
+  // Print each value to the Serial Monitor
+  for (int i = 0; i < SENSOR_NUMS; i++) {
+    Serial.print("Sensor ");
+    Serial.print(i);
+    Serial.print(": ");
+    Serial.print(sensorValues[i]);
+    Serial.print("\t");
+  }
 
-   Serial.println(); // Move to next line after printing all sensor values
+  Serial.println(); // Move to next line after printing all sensor values
 }
 
 /**
@@ -435,32 +371,32 @@ void testQTR() {
  * @return void
  */
 void goRightUntilFindBlackLine() {
-   // Drive forward
-   leftMotor.setSpeed(150);
+  // Drive forward
+  leftMotor.setSpeed(150);
+  rightMotor.setSpeed(150);
+  // Wait until all sensors see black
+  bool detectStrip = false;
+  int sensorCount = 0;
+  while (!detectStrip) {
+    qtr.read(sensorValues);
 
-   // Wait until all sensors see black
-   bool detectStrip = false;
-   int sensorCount = 0;
-   while (!detectStrip) {
-      qtr.read(sensorValues);
-
-      for (int i = 0; i < SENSOR_NUMS; i++) {
-         if (sensorValues[i] > BLACK_THRESHOLD) {
-            sensorCount++;
-         }
+    for (int i = 0; i < SENSOR_NUMS; i++) {
+      if (sensorValues[i] > BLACK_THRESHOLD) {
+        sensorCount++;
       }
-      if (sensorCount > 1) {
-         detectStrip = true;
-      } else {
-         sensorCount = 0;
-      }
-      delay(5); //delay to give it its bearings
-   }
+    }
+    if (sensorCount > 1) {
+      detectStrip = true;
+    } else {
+      sensorCount = 0;
+    }
+    delay(5); //delay to give it its bearings
+  }
 
-   Serial.println("found black line");
-   // stop and delay
-   leftMotor.setSpeed(0);
-   rightMotor.setSpeed(0);
+  Serial.println("found black line");
+  // stop and delay
+  leftMotor.setSpeed(0);
+  rightMotor.setSpeed(0);
 }
 
 /**
@@ -469,54 +405,54 @@ void goRightUntilFindBlackLine() {
  */
 
 void moveDegrees(int targetDisplacement) {
-   long lastPosition = 0;
-   bool isSlowingDown = false;
-   bool hasReachedTarget = false;
-   const long slowDownThreshold = 30;
+  long lastPosition = 0;
+  bool isSlowingDown = false;
+  bool hasReachedTarget = false;
+  const long slowDownThreshold = 30;
 
-   int direction = (targetDisplacement >= 0) ? 1 : -1;
-   targetDisplacement = abs(targetDisplacement); // Work with magnitude for thresholding
+  int direction = (targetDisplacement >= 0) ? 1 : -1;
+  targetDisplacement = abs(targetDisplacement); // Work with magnitude for thresholding
 
-   lsMotor.write(0); // Reset encoder before starting
-   delay(100);
+  lsMotor.write(0); // Reset encoder before starting
+  delay(100);
 
-   ls_motor.drive(100 * direction); // Start moving in correct direction
+  ls_motor.drive(40 * direction); // Start moving in correct direction
 
-   while (!hasReachedTarget) {
-      delay(10);
+  while (!hasReachedTarget) {
+    delay(10);
 
-      long position = abs(lsMotor.read()); // Use absolute position for comparison
-      long currentPosition = lsMotor.read(); // For signed value if needed for debug
+    long position = abs(lsMotor.read()); // Use absolute position for comparison
+    long currentPosition = lsMotor.read(); // For signed value if needed for debug
 
-      // Print encoder position if changed
-      if (abs(position - lastPosition) >= 1) {
-         lastPosition = position;
-         Serial.println(currentPosition); // show signed value
-      }
+    // Print encoder position if changed
+    if (abs(position - lastPosition) >= 1) {
+      lastPosition = position;
+      Serial.println(currentPosition); // show signed value
+    }
 
-      // Transition logic
-      if (position >= targetDisplacement) {
-         // Stop condition
-         ls_motor.brake();
-         Serial.println("Reached target!");
+    // Transition logic
+    if (position >= targetDisplacement) {
+      // Stop condition
+      ls_motor.brake();
+      Serial.println("Reached target!");
 
-         hasReachedTarget = true;
-         delay(2000);
-         lsMotor.write(0); // Reset encoder
-         lastPosition = 0;
-      } else if (!isSlowingDown && position >= targetDisplacement - slowDownThreshold) {
-         // Begin slowing down
-         ls_motor.drive(50 * direction);
-         isSlowingDown = true;
-         Serial.println("Slowing down...");
-      }
-   }
+      hasReachedTarget = true;
+      delay(2000);
+      lsMotor.write(0); // Reset encoder
+      lastPosition = 0;
+    } else if (!isSlowingDown && position >= targetDisplacement - slowDownThreshold) {
+      // Begin slowing down
+      ls_motor.drive(50 * direction);
+      isSlowingDown = true;
+      Serial.println("Slowing down...");
+    }
+  }
 }
 
 void moveDegreesAndShoot(int deg) {
-   threads.start(); // Pause all thread switching
-   moveDegrees(deg); // Call your function that shouldn't be interrupted
-   threads.stop(); // Resume normal thread scheduling
+  threads.start(); // Pause all thread switching
+  moveDegrees(deg); // Call your function that shouldn't be interrupted
+  threads.stop(); // Resume normal thread scheduling
 }
 
 /**
@@ -525,31 +461,9 @@ void moveDegreesAndShoot(int deg) {
  */
 
 void flashLED() {
-   digitalWrite(LED_BUILTIN, HIGH);
-   delay(500);
-   digitalWrite(LED_BUILTIN, LOW);
-}
-
-void lineFollowUntilGoalAndExtras() {
-   bool flag = false;
-   uint16_t range = sensor.readRangeSingleMillimeters();
-   bool flag160 = false;
-   while (!flag) {
-      range = sensor.readRangeSingleMillimeters();
-      delay(5);
-      lineFollow();
-      if (range > 160) {
-         flag160 = true;
-      }
-      if ((range > 100) && (range < 140) && (flag160 == true)) {
-         leftMotor.setSpeed(0);
-         rightMotor.setSpeed(0);
-         flag = true;
-      }
-
-      Serial.println(range);
-   }
-   Serial.println("found goal");
+  digitalWrite(LED_BUILTIN, HIGH);
+  delay(500);
+  digitalWrite(LED_BUILTIN, LOW);
 }
 
 /**
@@ -558,75 +472,67 @@ void lineFollowUntilGoalAndExtras() {
  * @return void
  */
 void debugMenu(int selection) {
-   delay(300);
-   switch (selection) {
-   case 1:
-      Serial.println("calibrate robot");
-      delay(1000);
-      Serial.println("calibrate robot");
-      for (int i = 0; i < 1000; i++) { //calibrate robot
-         qtr.calibrate();
-         delay(5);
-      }
-      Serial.println("robot calibrate done");
-      delay(5000);
-      break;
+  delay(300);
+  switch (selection) {
+  case 1:
+    Serial.println("calibrate robot");
+    delay(1000);
+    Serial.println("calibrate robot");
+    for (int i = 0; i < 1000; i++) { //calibrate robot
+      qtr.calibrate();
+      delay(5);
+    }
+    Serial.println("robot calibrate done");
+    delay(5000);
+    break;
 
-   case 2: {
-      Serial.println("linefollow");
-      bool flag = false;
-      while (!flag) {
-         lineFollow();
-         Serial.println("m");
-         if (Serial.available() > 0) {
-            flag = true;
-         }
+  case 2: {
+    Serial.println("linefollow");
+    bool flag = false;
+    while (!flag) {
+      lineFollow();
+      Serial.println("m");
+      if (Serial.available() > 0) {
+        flag = true;
       }
-      leftMotor.setSpeed(0);
-      rightMotor.setSpeed(0);
-   }
-   break;
-   case 3:
-      Serial.println("line follow until goal");
-      lineFollowUntilGoal();
-      break;
-   case 4: {
-      Serial.println("rotate lazy susan");
-      Serial.print("what do you want it to rotate to? ");
-      waitForUserInput();
-      delay(500);
-      int deg = Serial.parseInt();
-      moveDegrees(deg);
-   }
-   break;
-   case 5:
-      Serial.println("turn on shooter motor");
-      shootPuck();
-      break;
-   case 6: {
-      Serial.println("test ToF");
-      bool flag = false;
+    }
+    leftMotor.setSpeed(0);
+    rightMotor.setSpeed(0);
+  }
+  break;
+  case 3:
+    Serial.println("line follow until goal");
+    lineFollowUntilGoal();
+    break;
+  case 4: {
+    Serial.println("rotate lazy susan");
+    Serial.print("what do you want it to rotate to? ");
+    waitForUserInput();
+    delay(500);
+    int deg = Serial.parseInt();
+    moveDegrees(deg);
+  }
+  break;
+  case 5:
+    Serial.println("turn on shooter motor");
+    shootPuck();
+    break;
+  case 6: {
+    Serial.println("test ToF");
+    bool flag = false;
 
-      uint16_t range = sensor.readRangeSingleMillimeters();
-      while (!flag) {
-         range = sensor.readRangeSingleMillimeters();
-         Serial.println(range);
-         delay(100);
-         if (Serial.available() > 0) {
-            flag = true;
-         }
+    uint16_t range = sensor.readRangeSingleMillimeters();
+    while (!flag) {
+      range = sensor.readRangeSingleMillimeters();
+      Serial.println(range);
+      delay(100);
+      if (Serial.available() > 0) {
+        flag = true;
       }
-   }
-   break;
-
-   case 7:
-      test();
-      break;
-   case 8:
-      moveForwardALittleBit();
-      break;
-   }
-   
+    }
+  }
+  break;
+  }
 
 }
 
@@ -636,7 +542,7 @@ void debugMenu(int selection) {
  */
 void waitForUserInput() {
 
-   while (Serial.available() <= 0) {}
+  while (Serial.available() <= 0) {}
 }
 //void debug console:
 //case 1 2 3 4 etc.
